@@ -66,14 +66,14 @@ class InformasiArhoController extends Controller
 
             $hitung = 0;
 
-            for($i=0;$i < count($kelurahan);$i++){
+            for($i=0;$i < count($arho);$i++){
             $penugasan_arho = new PenugasanArho;
 
             $penugasan_arho->tgl_input = $newformat;
 
-            $penugasan_arho->id_arho = $id_arho;
+            $penugasan_arho->id_arho = $arho[$i];
 
-            $penugasan_arho->id_kelurahan = $kelurahan[$i];
+            $penugasan_arho->id_kelurahan = $id_kelurahan;
 
               $query = $penugasan_arho->save();
 
@@ -92,6 +92,7 @@ class InformasiArhoController extends Controller
         } catch (\Exception $e) {
             DB::rollback();
             // something went wrong
+            //throw $e;
 
             return 0;
         }

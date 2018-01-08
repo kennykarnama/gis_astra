@@ -387,13 +387,13 @@
                    success:function(data){
                       
                       if(data==1){
-                        alert('Penugasan arho berhasil ditambahkan');
+                        alert('Penugasan arho berhasil diedit');
 
                         location.reload();
                       }
 
                       else{
-                        alert("penugasan arho tidak berhasil ditambahkan");
+                        alert("penugasan arho tidak berhasil diedit");
                       }
 
                    }
