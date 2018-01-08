@@ -57,7 +57,18 @@ Route::post('/arho/fetch_list_arho', ['uses' => 'myapi\ArhoController@fetch_list
 
 Route::post('/informasi_arho/update_penugasan', ['uses' => 'master_data\InformasiArhoController@update_penugasan_arho'])->name('admin.informasi_arho.update_penugasan_arho');
 
+Route::get('/list_kecamatan', ['uses' => 'master_data\KecamatanController@indexHome'])->name('admin.list_kecamatan');
+
+Route::post('/list_kecamatan/simpan', ['uses' => 'master_data\KecamatanController@create_kecamatan'])->name('admin.list_kecamatan.simpan');
+
+Route::post('/list_kecamatan/update', ['uses' => 'master_data\KecamatanController@update_kecamatan'])->name('admin.list_kecamatan.update');
+
+Route::post('/list_kecamatan/fetch', ['uses' => 'master_data\KecamatanController@fetch_kecamatan_by_id_kecamatan'])->name('admin.list_kecamatan.fetch');
+
+Route::post('/list_kecamatan/hapus', ['uses' => 'master_data\KecamatanController@softdelete_kecamatan'])->name('admin.list_kecamatan.hapus');
+
 
 Auth::routes();
+
 
 Route::get('/home', 'HomeController@index')->name('home');

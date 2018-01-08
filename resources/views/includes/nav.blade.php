@@ -35,8 +35,39 @@
                       <a class="collapsible-header">Master Data</a>
                       <div class="collapsible-body">
                         <ul>
+                         
+
                           <li><a href="/informasi_arho">Informasi Arho</a></li>
-                          <li><a href="#!">Informasi Wilayah</a></li>
+                           <li class="no-padding">
+                            <ul class="collapsible collapsible-accordion">
+                    <li>
+                      <a class="collapsible-header" href="#">Informasi Wilayah</a>
+                      <div class="collapsible-body">  
+
+                        <ul>
+                                <li class="no-padding">
+                  <ul class="collapsible collapsible-accordion">
+                    <li>
+                      <a class="collapsible-header" href="/list_kecamatan">Daftar Kecamatan</a>
+                      <div class="collapsible-body">
+                       
+                      </div>
+                    </li>
+                      <li>
+                      <a class="collapsible-header" href="/list_kelurahan">Daftar Kelurahan</a>
+                      <div class="collapsible-body">
+                       
+                      </div>
+                    </li>
+                   </ul>
+              </li>
+                        </ul>
+                       
+                      </div>
+                    </li>
+                   </ul>
+                          </li>
+                          <!-- <li><a href="#!">Informasi Wilayah</a></li> -->
                           <li><a href="#!">Informasi Kredit</a></li>
                         </ul>
 
