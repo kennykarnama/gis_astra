@@ -67,7 +67,7 @@ Route::post('/list_kecamatan/fetch', ['uses' => 'master_data\KecamatanController
 
 Route::post('/list_kecamatan/hapus', ['uses' => 'master_data\KecamatanController@softdelete_kecamatan'])->name('admin.list_kecamatan.hapus');
 
-Route::get('/list_kelurahan', ['uses' => 'master_data\KelurahanController@indexHome'])->name('admin.list_kelurahan.hapus');
+Route::get('/list_kelurahan', ['uses' => 'master_data\KelurahanController@indexHome'])->name('admin.list_kelurahan');
 
 Route::post('/list_kelurahan/simpan', ['uses' => 'master_data\KelurahanController@create_kelurahan'])->name('admin.list_kelurahan.simpan');
 
