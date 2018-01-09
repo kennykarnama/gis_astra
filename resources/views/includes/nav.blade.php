@@ -48,13 +48,13 @@
                                 <li class="no-padding">
                   <ul class="collapsible collapsible-accordion">
                     <li>
-                      <a class="collapsible-header" href="/list_kecamatan">Daftar Kecamatan</a>
+                      <a class="collapsible-header" href="{{route('admin.list_kecamatan')}}">Daftar Kecamatan</a>
                       <div class="collapsible-body">
                        
                       </div>
                     </li>
                       <li>
-                      <a class="collapsible-header" href="/list_kelurahan">Daftar Kelurahan</a>
+                      <a class="collapsible-header" href="{{route('admin.list_kelurahan')}}">Daftar Kelurahan</a>
                       <div class="collapsible-body">
                        
                       </div>
