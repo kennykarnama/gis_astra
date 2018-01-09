@@ -237,7 +237,7 @@
 
         			$.ajax({
 		               type:'POST',
-		               url:'/akun_pengguna/update',
+		               url:'{{route("admin.akun_pengguna.update")}}',
 		               data:{
 
 		               	'id_target_user':id_target_user,
@@ -280,7 +280,7 @@
 
         			$.ajax({
 		               type:'POST',
-		               url:'/akun_pengguna/ganti_sandi',
+		               url:'{{route("admin.akun_pengguna.ganti_sandi")}}',
 		               data:{
 
 		               	'id_target_user':id_target_user,
@@ -320,7 +320,7 @@
 
 				$.ajax({
 		               type:'POST',
-		               url:'/akun_pengguna/get_user_by_id',
+		               url:'{{route("admin.akun_pengguna.get_user_by_id")}}',
 		               data:{
 
 		               	'id_target_user':id_target_user
