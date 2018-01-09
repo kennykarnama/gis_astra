@@ -37,7 +37,7 @@
                         <ul>
                          
 
-                          <li><a href="/informasi_arho">Informasi Arho</a></li>
+                          <li><a href="{{route('admin.informasi_arho')}}">Informasi Arho</a></li>
                            <li class="no-padding">
                             <ul class="collapsible collapsible-accordion">
                     <li>
