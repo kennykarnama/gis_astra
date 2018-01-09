@@ -372,7 +372,7 @@
 
 				$.ajax({
 		               type:'POST',
-		               url:'/akun_pengguna/hapus',
+		               url:'{{route("admin.akun_pengguna.hapus")}}',
 		               data:{
 
 		               	'id_user':id_user
@@ -416,7 +416,7 @@
 
 					$.ajax({
 		               type:'POST',
-		               url:'/akun_pengguna/simpan',
+		               url:'{{route("admin.akun_pengguna.simpan")}}',
 		               data:{
 
 		               	'username':username,
