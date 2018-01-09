@@ -20,7 +20,7 @@
               <li class="no-padding">
                   <ul class="collapsible collapsible-accordion">
                     <li>
-                      <a class="collapsible-header" href="/akun_pengguna">Akun Pengguna</a>
+                      <a class="collapsible-header" href="{{route('admin.akun_pengguna')}}">Akun Pengguna</a>
                       <div class="collapsible-body">
                        
                       </div>
