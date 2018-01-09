@@ -433,7 +433,7 @@
 
                       $.ajax({
                    type:'POST',
-                   url:'/arho/fetch_list_arho',
+                   url:'{{route("admin.informasi_arho.fetch_list_arho")}}',
                    data:{
 
                    },
