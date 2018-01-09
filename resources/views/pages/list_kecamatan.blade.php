@@ -149,7 +149,7 @@
 
       $.ajax({
                    type:'POST',
-                   url:'/list_kecamatan/update',
+                   url:'{{route("admin.list_kecamatan.update")}}',
                    data:{
 
                  	'id_kecamatan':id_kecamatan,
@@ -190,7 +190,7 @@
 
       $.ajax({
                    type:'POST',
-                   url:'/list_kecamatan/hapus',
+                   url:'{{route("admin.list_kecamatan.hapus")}}',
                    data:{
 
                  	'id_kecamatan':id_kecamatan
@@ -226,7 +226,7 @@
 
       $.ajax({
                    type:'POST',
-                   url:'/list_kecamatan/fetch',
+                   url:'{{route("admin.list_kecamatan.fetch")}}',
                    data:{
 
                  	'id_kecamatan':id_kecamatan
@@ -273,7 +273,7 @@
 
       $.ajax({
                    type:'POST',
-                   url:'/list_kecamatan/simpan',
+                   url:'{{route("admin.list_kecamatan.simpan")}}',
                    data:{
 
                   'nama_kecamatan':nama_kecamatan,
