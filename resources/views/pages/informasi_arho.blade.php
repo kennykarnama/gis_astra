@@ -376,7 +376,7 @@
 
       $.ajax({
                    type:'POST',
-                   url:'/informasi_arho/update_penugasan',
+                   url:'{{route("admin.informasi_arho.update_penugasan_arho")}}',
                    data:{
 
                    'id_kelurahan':id_kelurahan,
@@ -415,7 +415,7 @@
 
         $.ajax({
                    type:'POST',
-                   url:'/informasi_arho/get_info_penugasan',
+                   url:'{{route("admin.informasi_arho.get_info_penugasan")}}',
                    data:{
 
                     'id_kelurahan':id_kelurahan
@@ -514,7 +514,7 @@
 
       $.ajax({
                    type:'POST',
-                   url:'/informasi_arho/simpan_penugasan',
+                   url:'{{route("admin.informasi_arho.simpan_penugasan")}}',
                    data:{
 
                    'tgl_input':tgl_input,
@@ -554,7 +554,7 @@
 
         $.ajax({
                    type:'POST',
-                   url:'/informasi_arho/get_kelurahan_by_kecamatan',
+                   url:'{{route("admin.informasi_arho.get_kelurahan_by_kecamatan")}}',
                    data:{
 
                    'id_kecamatan':id_kecamatan
@@ -602,7 +602,7 @@
 
       $.ajax({
                    type:'POST',
-                   url:'/informasi_arho/update',
+                   url:'{{route("admin.informasi_arho.update")}}',
                    data:{
 
                     'id_arho':id_arho,
@@ -643,7 +643,7 @@
 
         $.ajax({
                    type:'POST',
-                   url:'/informasi_arho/get_arho_by_id',
+                   url:'{{route("admin.informasi_arho.get_arho_by_id")}}',
                    data:{
 
                     'id_arho':id_arho
@@ -681,7 +681,7 @@
 
          $.ajax({
                    type:'POST',
-                   url:'/informasi_arho/hapus',
+                   url:'{{route("admin.informasi_arho.hapus")}}',
                    data:{
 
                     'id_arho':id_arho
@@ -721,7 +721,7 @@
 
         $.ajax({
                    type:'POST',
-                   url:'/informasi_arho/simpan',
+                   url:'{{route("admin.informasi_arho.simpan")}}',
                    data:{
 
                    'nama_lengkap':nama_lengkap,

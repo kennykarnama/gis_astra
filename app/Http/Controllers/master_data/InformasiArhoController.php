@@ -30,7 +30,7 @@ class InformasiArhoController extends Controller
 
         $list_kelurahan = $this->fetchKelurahan();
 
-        //dd($susunan_penugasan);
+       // dd($susunan_penugasan);
 
     	return view('pages/informasi_arho',
     		[

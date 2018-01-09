@@ -45,7 +45,7 @@ Route::post('/informasi_arho/update', ['uses' => 'master_data\InformasiArhoContr
 
 Route::post('/informasi_arho/hapus', ['uses' => 'master_data\InformasiArhoController@softdelete_arho'])->name('admin.informasi_arho.hapus');
 
-Route::post('/informasi_arho/get_arho_by_id', ['uses' => 'master_data\InformasiArhoController@get_arho_by_id'])->name('admin.informasi_arho.hapus');
+Route::post('/informasi_arho/get_arho_by_id', ['uses' => 'master_data\InformasiArhoController@get_arho_by_id'])->name('admin.informasi_arho.get_arho_by_id');
 
 Route::post('/informasi_arho/get_kelurahan_by_kecamatan', ['uses' => 'master_data\InformasiArhoController@get_kelurahan_by_kecamatan'])->name('admin.informasi_arho.get_kelurahan_by_kecamatan');
 
