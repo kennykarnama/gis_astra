@@ -176,7 +176,7 @@
 
       $.ajax({
                    type:'POST',
-                   url:'/list_kelurahan/update',
+                   url:'{{route("admin.list_kelurahan.update")}}',
                    data:{
 
                  	
@@ -221,7 +221,7 @@
 
       $.ajax({
                    type:'POST',
-                   url:'/list_kelurahan/hapus',
+                   url:'{{route("admin.list_kelurahan.hapus")}}',
                    data:{
 
                  	'id_kelurahan':id_kelurahan
@@ -257,7 +257,7 @@
 
       $.ajax({
                    type:'POST',
-                   url:'/list_kelurahan/fetch',
+                   url:'{{route("admin.list_kelurahan.fetch")}}',
                    data:{
 
                  	'id_kelurahan':id_kelurahan
@@ -310,7 +310,7 @@
 
       $.ajax({
                    type:'POST',
-                   url:'/list_kelurahan/simpan',
+                   url:'{{route("admin.list_kelurahan.simpan")}}',
                    data:{
                   'id_kecamatan':id_kecamatan,
                   'nama_kelurahan':nama_kelurahan,
