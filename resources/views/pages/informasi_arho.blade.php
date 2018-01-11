@@ -14,9 +14,11 @@
 	  
 	  <div id="arho-swipe" class="col s12" style="margin-top:15px;">
 
+    
+
 	  	<a class="waves-effect waves-light modal-trigger btn" href="#modal-tambah-arho">Tambah Arho</a>
 
-	  	<table class="bordered highlight centered responsive-table">
+	  	<table class="table" id="tabel_daftar_arho">
         <thead>
           <tr>
           	  <th>No.</th>
@@ -353,9 +355,15 @@
 
 @push('scripts')
 
+<script type="text/javascript" src="{{asset('js/dataTables.materialize.js')}}"></script>
+
+
+
 <script type="text/javascript">
   $(document).ready(function () {
     // body..
+
+    $('#tabel_daftar_arho').DataTable({});
 
     $('#btn-simpan-edit-penugasan').click(function () {
       
