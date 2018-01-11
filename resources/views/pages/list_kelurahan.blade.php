@@ -13,7 +13,7 @@
 
 		<a class="waves-effect waves-light modal-trigger btn" href="#modal-tambah-kelurahan">Tambah Kelurahan</a>
 
-		<table class="bordered highlight centered responsive-table">
+		<table class="bordered highlight centered responsive-table" id="tabel_kelurahan">
         <thead>
           <tr>
           	  <th>No.</th>
@@ -147,11 +147,18 @@
 @stop
 
 @push('scripts')
+
+ <script type="text/javascript" src="{{asset('js/dataTables.materialize.js')}}"></script>
+
 	
 	<script type="text/javascript">
 		
 		$(document).ready(function () {
 			// body...
+       $('#tabel_kelurahan').DataTable({
+          "scrollY":        "200px",
+        "scrollCollapse": true,
+      });
 
 			$('#btn-edit-kecamatan').click(function  () {
 				// body...

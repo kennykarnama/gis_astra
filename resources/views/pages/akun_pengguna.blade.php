@@ -13,7 +13,7 @@
 
 		<a class="waves-effect waves-light modal-trigger btn" href="#modal-tambah-akun">Buat Akun Baru</a>
 
-		<table class="bordered highlight centered responsive-table">
+		<table class="bordered highlight centered responsive-table" id="tabel_akun">
         <thead>
           <tr>
           	  <th>No.</th>
@@ -210,11 +210,21 @@
 @stop
 
 @push('scripts')
+
+<script type="text/javascript" src="{{asset('js/dataTables.materialize.js')}}"></script>
+
 	
 	<script type="text/javascript">
 		
 		$(document).ready(function () {
 			// body...
+
+			$('#tabel_akun').DataTable({
+        
+		        "scrollY":        "200px",
+		        "scrollCollapse": true,
+
+    		});
 
 			$('#btn-edit-akun-baru').click(function  () {
 				// body...

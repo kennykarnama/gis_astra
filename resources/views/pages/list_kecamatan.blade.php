@@ -13,7 +13,7 @@
 
 		<a class="waves-effect waves-light modal-trigger btn" href="#modal-tambah-kecamatan">Tambah Kecamatan</a>
 
-		<table class="bordered highlight centered responsive-table">
+		<table class="bordered highlight centered responsive-table" id="tabel_kecamatan">
         <thead>
           <tr>
           	  <th>No.</th>
@@ -125,10 +125,17 @@
 
 @push('scripts')
 	
+  <script type="text/javascript" src="{{asset('js/dataTables.materialize.js')}}"></script>
+
 	<script type="text/javascript">
 		
 		$(document).ready(function () {
 			// body...
+
+      $('#tabel_kecamatan').DataTable({
+          "scrollY":        "200px",
+        "scrollCollapse": true,
+      });
 
 			$('#btn-edit-kecamatan').click(function  () {
 				// body...
