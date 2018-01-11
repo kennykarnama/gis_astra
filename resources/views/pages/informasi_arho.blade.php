@@ -363,7 +363,12 @@
   $(document).ready(function () {
     // body..
 
-    $('#tabel_daftar_arho').DataTable({});
+    $('#tabel_daftar_arho').DataTable({
+        
+        "scrollY":        "200px",
+        "scrollCollapse": true,
+
+    });
 
     $('#btn-simpan-edit-penugasan').click(function () {
       
