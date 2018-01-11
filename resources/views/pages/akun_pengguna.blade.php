@@ -219,12 +219,99 @@
 		$(document).ready(function () {
 			// body...
 
-			$('#tabel_akun').DataTable({
+		var tabel_akun =	$('#tabel_akun').DataTable({
         
 		        "scrollY":        "200px",
 		        "scrollCollapse": true,
+		        "destory":true,
 
     		});
+
+		$('#tabel_akun tbody').on('click','.li-edit',function  () {
+			// body...
+
+				var id_target_user = $(this).data('iduser');
+
+				$.ajaxSetup({
+			            headers: {
+			                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			            }
+        			});
+
+				$.ajax({
+		               type:'POST',
+		               url:'{{route("admin.akun_pengguna.get_user_by_id")}}',
+		               data:{
+
+		               	'id_target_user':id_target_user
+
+		               },
+		               success:function(data){
+		                  
+		                  var user = data[0];
+
+		                  $('#edit_id_target_user').val(user.id_user);
+
+		                  $('#edit-username').val(user.username);
+
+		                  $('#edit-email').val(user.email);
+
+		                  $('#edit-jabatan').val(user.id_role);
+
+		                  //update form field
+
+		                   $('select').material_select();
+
+		                   Materialize.updateTextFields();
+
+		                  $('#modal-edit-akun').modal('open');		                  
+
+		               }
+            		});
+		});
+
+		$('#tabel_akun tbody').on('click','.li-gantisandi',function  () {
+			// body...
+
+			var id_target_user = $(this).data('iduser');
+
+				$('#id_target_user').val(id_target_user);
+
+				$('#modal-ganti-sandi').modal('open');
+
+		});
+
+		$('#tabel_akun tbody').on('click','.li-hapus',function  () {
+			// body...
+			var id_user = $(this).data('iduser');
+
+				$.ajaxSetup({
+			            headers: {
+			                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			            }
+        			});
+
+				$.ajax({
+		               type:'POST',
+		               url:'{{route("admin.akun_pengguna.hapus")}}',
+		               data:{
+
+		               	'id_user':id_user
+
+		               },
+		               success:function(data){
+		                  if(data==1){
+		                  	alert('Akun Berhasil dihapus');
+
+		                  	location.reload();
+		                  }
+
+		                  else{
+		                  	alert('Akun tidak berhasil dihapus');
+		                  }
+		               }
+            		});
+		});
 
 			$('#btn-edit-akun-baru').click(function  () {
 				// body...
@@ -317,91 +404,10 @@
 				}
 
 			});
-			$('.li-edit').click(function  () {
-				// body...
+			
 
-				var id_target_user = $(this).data('iduser');
 
-				$.ajaxSetup({
-			            headers: {
-			                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			            }
-        			});
-
-				$.ajax({
-		               type:'POST',
-		               url:'{{route("admin.akun_pengguna.get_user_by_id")}}',
-		               data:{
-
-		               	'id_target_user':id_target_user
-
-		               },
-		               success:function(data){
-		                  
-		                  var user = data[0];
-
-		                  $('#edit_id_target_user').val(user.id_user);
-
-		                  $('#edit-username').val(user.username);
-
-		                  $('#edit-email').val(user.email);
-
-		                  $('#edit-jabatan').val(user.id_role);
-
-		                  //update form field
-
-		                   $('select').material_select();
-
-		                   Materialize.updateTextFields();
-
-		                  $('#modal-edit-akun').modal('open');		                  
-
-		               }
-            		});
-
-			});
-
-			$('.li-gantisandi').click(function  () {
-				// body...
-				var id_target_user = $(this).data('iduser');
-
-				$('#id_target_user').val(id_target_user);
-
-				$('#modal-ganti-sandi').modal('open');
-			});
-
-			$('.li-hapus').click(function () {
-				// body...
-				var id_user = $(this).data('iduser');
-
-				$.ajaxSetup({
-			            headers: {
-			                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			            }
-        			});
-
-				$.ajax({
-		               type:'POST',
-		               url:'{{route("admin.akun_pengguna.hapus")}}',
-		               data:{
-
-		               	'id_user':id_user
-
-		               },
-		               success:function(data){
-		                  if(data==1){
-		                  	alert('Akun Berhasil dihapus');
-
-		                  	location.reload();
-		                  }
-
-		                  else{
-		                  	alert('Akun tidak berhasil dihapus');
-		                  }
-		               }
-            		});
-
-			});
+			
 
 			$('#btn-simpan-akun-baru').click(function  () {
 			// body...
