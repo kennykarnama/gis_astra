@@ -370,6 +370,78 @@
 
     });
 
+    $('#tabel_daftar_arho tbody').on('click','.li-arho-edit',function  () {
+      // body...
+         var id_arho = $(this).data('idarho');
+
+        $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
+
+        $.ajax({
+                   type:'POST',
+                   url:'{{route("admin.informasi_arho.get_arho_by_id")}}',
+                   data:{
+
+                    'id_arho':id_arho
+
+
+                   },
+                   success:function(data){
+                      
+                      data = data[0];
+
+                      $('#edit_id_arho').val(data.id_arho);
+
+                      $('#edit_nama_lengkap').val(data.nama_lengkap);
+
+                      $('#edit_nama_panggilan').val(data.nama_panggilan);
+
+                       Materialize.updateTextFields();
+
+                      $('#modal-edit-arho').modal('open');
+
+                   }
+                });
+
+    });
+
+    $('#tabel_daftar_arho tbody').on('click','.li-arho-hapus',function  () {
+      // body...
+          var id_arho = $(this).data('idarho');
+
+        $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
+
+         $.ajax({
+                   type:'POST',
+                   url:'{{route("admin.informasi_arho.hapus")}}',
+                   data:{
+
+                    'id_arho':id_arho
+
+
+                   },
+                   success:function(data){
+                      if(data==1){
+                        alert('Arho berhasil dihapus');
+
+                        location.reload();
+                      }
+
+                      else{
+                        alert('Akun tidak berhasil dihapus');
+                      }
+                   }
+                });
+
+    });
+
     $('#btn-simpan-edit-penugasan').click(function () {
       
       // body...
@@ -644,79 +716,8 @@
   
     });
 
-    $('.li-arho-edit').click(function () {
-      // body...
-        var id_arho = $(this).data('idarho');
-
-        $.ajaxSetup({
-                  headers: {
-                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                  }
-              });
-
-        $.ajax({
-                   type:'POST',
-                   url:'{{route("admin.informasi_arho.get_arho_by_id")}}',
-                   data:{
-
-                    'id_arho':id_arho
-
-
-                   },
-                   success:function(data){
-                      
-                      data = data[0];
-
-                      $('#edit_id_arho').val(data.id_arho);
-
-                      $('#edit_nama_lengkap').val(data.nama_lengkap);
-
-                      $('#edit_nama_panggilan').val(data.nama_panggilan);
-
-                       Materialize.updateTextFields();
-
-                      $('#modal-edit-arho').modal('open');
-
-                   }
-                });
-
-    });
-
-    $('.li-arho-hapus').click(function () {
-      // body...
-      var id_arho = $(this).data('idarho');
-
-        $.ajaxSetup({
-                  headers: {
-                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                  }
-              });
-
-         $.ajax({
-                   type:'POST',
-                   url:'{{route("admin.informasi_arho.hapus")}}',
-                   data:{
-
-                    'id_arho':id_arho
-
-
-                   },
-                   success:function(data){
-                      if(data==1){
-                        alert('Arho berhasil dihapus');
-
-                        location.reload();
-                      }
-
-                      else{
-                        alert('Akun tidak berhasil dihapus');
-                      }
-                   }
-                });
-
-
-    });
-
+  
+  
       $('#btn-tambah-arho-baru').click(function () {
         // body...
 
