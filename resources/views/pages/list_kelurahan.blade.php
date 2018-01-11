@@ -155,10 +155,92 @@
 		
 		$(document).ready(function () {
 			// body...
-       $('#tabel_kelurahan').DataTable({
+      var tabel_kelurahan = $('#tabel_kelurahan').DataTable({
           "scrollY":        "200px",
         "scrollCollapse": true,
       });
+
+      $('#tabel_kelurahan tbody').on('click','.li-edit',function  () {
+        // body...
+          var id_kelurahan = $(this).data('idkelurahan');
+
+         $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
+
+
+      $.ajax({
+                   type:'POST',
+                   url:'{{route("admin.list_kelurahan.fetch")}}',
+                   data:{
+
+                  'id_kelurahan':id_kelurahan
+                   },
+                   success:function(data){
+
+                    console.log(data);
+
+                      $('#id_kelurahan').val(data.id_kelurahan);
+
+                      $('#edit_nama_kelurahan').val(data.nama_kelurahan);
+
+                      $('#edit_latitude').val(data.lat);
+
+                      $('#edit_longitude').val(data.lng);
+
+                      $('#edit_pilih_kecamatan').val(data.id_kecamatan);
+
+
+
+                      $('#modal-edit-kelurahan').modal('open');
+
+                        Materialize.updateTextFields();
+
+                         $('select').material_select();
+                      
+                     
+                   }
+                });
+      });
+
+    $('#tabel_kelurahan tbody').on('click','.li-hapus',function  () {
+      // body...
+        var id_kelurahan = $(this).data('idkelurahan');
+
+
+
+         $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
+
+
+      $.ajax({
+                   type:'POST',
+                   url:'{{route("admin.list_kelurahan.hapus")}}',
+                   data:{
+
+                  'id_kelurahan':id_kelurahan
+                   },
+                   success:function(data){
+
+                    if(data==1){
+                      alert('Kelurahan berhasil dihapus');
+
+                      location.reload();
+
+                    }
+
+                    else{
+                      alert("Kelurahan tidak berhasil dihapus");
+                    }
+                     
+                   }
+                });
+    });
 
 			$('#btn-edit-kecamatan').click(function  () {
 				// body...
@@ -211,90 +293,7 @@
 
 
 			});
-			$('.li-hapus').click(function  () {
-				
-				// body...
-
-				var id_kelurahan = $(this).data('idkelurahan');
-
-
-
-				 $.ajaxSetup({
-                  headers: {
-                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                  }
-              });
-
-
-      $.ajax({
-                   type:'POST',
-                   url:'{{route("admin.list_kelurahan.hapus")}}',
-                   data:{
-
-                 	'id_kelurahan':id_kelurahan
-                   },
-                   success:function(data){
-
-                   	if(data==1){
-                   		alert('Kelurahan berhasil dihapus');
-
-                   		location.reload();
-
-                   	}
-
-                   	else{
-                   		alert("Kelurahan tidak berhasil dihapus");
-                   	}
-                     
-                   }
-                });
-			});
-			
-
-			$('.li-edit').click(function  () {
-				// body...
-				var id_kelurahan = $(this).data('idkelurahan');
-
-				 $.ajaxSetup({
-                  headers: {
-                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                  }
-              });
-
-
-      $.ajax({
-                   type:'POST',
-                   url:'{{route("admin.list_kelurahan.fetch")}}',
-                   data:{
-
-                 	'id_kelurahan':id_kelurahan
-                   },
-                   success:function(data){
-
-                   	console.log(data);
-
-                   		$('#id_kelurahan').val(data.id_kelurahan);
-
-                   		$('#edit_nama_kelurahan').val(data.nama_kelurahan);
-
-                   		$('#edit_latitude').val(data.lat);
-
-                   		$('#edit_longitude').val(data.lng);
-
-                      $('#edit_pilih_kecamatan').val(data.id_kecamatan);
-
-
-
-                   		$('#modal-edit-kelurahan').modal('open');
-
-                   			Materialize.updateTextFields();
-
-                         $('select').material_select();
-                      
-                     
-                   }
-                });
-			});
+		
 
 			$('#btn-tambah-kelurahan').click(function  () {
 				// body...
