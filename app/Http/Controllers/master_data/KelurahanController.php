@@ -136,6 +136,8 @@ class KelurahanController extends Controller
 
     private function fetchListKelurahan(){
     	$query = DB::table('kelurahan')
+                     ->select('kelurahan.id_kelurahan','kelurahan.lat','kelurahan.lng',
+                        'kelurahan.nama_kelurahan','kecamatan.nama_kecamatan')
     				 ->join('kecamatan','kecamatan.id_kecamatan','=','kelurahan.id_kecamatan')
     				 ->where('kelurahan.is_aktif','=',1)
     				 ->get();
