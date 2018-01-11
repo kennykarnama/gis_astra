@@ -132,10 +132,89 @@
 		$(document).ready(function () {
 			// body...
 
-      $('#tabel_kecamatan').DataTable({
+      var tabel_kecamatan = $('#tabel_kecamatan').DataTable({
           "scrollY":        "200px",
         "scrollCollapse": true,
+        "destory":true,
       });
+
+      $('#tabel_kecamatan tbody').on('click','.li-edit',function () {
+        // body...
+
+        var id_kecamatan = $(this).data('idkecamatan');
+
+         $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
+
+
+      $.ajax({
+                   type:'POST',
+                   url:'{{route("admin.list_kecamatan.fetch")}}',
+                   data:{
+
+                  'id_kecamatan':id_kecamatan
+                   },
+                   success:function(data){
+
+                    console.log(data);
+
+                      $('#id_kecamatan').val(data.id_kecamatan);
+
+                      $('#edit_nama_kecamatan').val(data.nama_kecamatan);
+
+                      $('#edit_latitude').val(data.lat);
+
+                      $('#edit_longitude').val(data.lng);
+
+
+
+                      $('#modal-edit-kecamatan').modal('open');
+
+                        Materialize.updateTextFields();
+                      
+                     
+                   }
+                });
+
+      });
+
+    $('#tabel_kecamatan tbody').on('click','.li-hapus',function  () {
+      // body...
+        var id_kecamatan = $(this).data('idkecamatan');
+
+         $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
+
+
+      $.ajax({
+                   type:'POST',
+                   url:'{{route("admin.list_kecamatan.hapus")}}',
+                   data:{
+
+                  'id_kecamatan':id_kecamatan
+                   },
+                   success:function(data){
+
+                    if(data==1){
+                      alert('Kecamatan berhasil dihapus');
+
+                      location.reload();
+
+                    }
+
+                    else{
+                      alert("Kecamatan tidak berhasil dihapus");
+                    }
+                     
+                   }
+                });
+    });
 
 			$('#btn-edit-kecamatan').click(function  () {
 				// body...
@@ -182,84 +261,8 @@
 
 
 			});
-			$('.li-hapus').click(function  () {
-				
-				// body...
 
-				var id_kecamatan = $(this).data('idkecamatan');
-
-				 $.ajaxSetup({
-                  headers: {
-                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                  }
-              });
-
-
-      $.ajax({
-                   type:'POST',
-                   url:'{{route("admin.list_kecamatan.hapus")}}',
-                   data:{
-
-                 	'id_kecamatan':id_kecamatan
-                   },
-                   success:function(data){
-
-                   	if(data==1){
-                   		alert('Kecamatan berhasil dihapus');
-
-                   		location.reload();
-
-                   	}
-
-                   	else{
-                   		alert("Kecamatan tidak berhasil dihapus");
-                   	}
-                     
-                   }
-                });
-			});
 			
-
-			$('.li-edit').click(function  () {
-				// body...
-				var id_kecamatan = $(this).data('idkecamatan');
-
-				 $.ajaxSetup({
-                  headers: {
-                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                  }
-              });
-
-
-      $.ajax({
-                   type:'POST',
-                   url:'{{route("admin.list_kecamatan.fetch")}}',
-                   data:{
-
-                 	'id_kecamatan':id_kecamatan
-                   },
-                   success:function(data){
-
-                   	console.log(data);
-
-                   		$('#id_kecamatan').val(data.id_kecamatan);
-
-                   		$('#edit_nama_kecamatan').val(data.nama_kecamatan);
-
-                   		$('#edit_latitude').val(data.lat);
-
-                   		$('#edit_longitude').val(data.lng);
-
-
-
-                   		$('#modal-edit-kecamatan').modal('open');
-
-                   			Materialize.updateTextFields();
-                      
-                     
-                   }
-                });
-			});
 
 			$('#btn-tambah-kecamatan').click(function  () {
 				// body...
