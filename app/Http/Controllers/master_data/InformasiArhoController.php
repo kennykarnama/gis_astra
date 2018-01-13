@@ -149,33 +149,84 @@ class InformasiArhoController extends Controller
     public function create_arho(Request $request)
     {
         # code...
-        $nama_lengkap = $request['nama_lengkap'];
+
+         $nama_lengkap = $request['nama_lengkap'];
+
+         $avatar_path = $request['avatar_path'];
+
+        
+        DB::beginTransaction();
+
+        try {
+           
+           // insert ke tabel arho terlebih dahulu
+
+              $arho = new Arho;
+
+              $arho->nama_lengkap = $nama_lengkap;
+
+               if(is_null($avatar_path)){
+                 $avatar_path = "";
+            }
+
+              $arho->avatar = $avatar_path;
+
+              $query = $arho->save();
+
+            // insert ke tabel penugasan
+
+        $tgl_input = $request['tgl_input'];
+
+        $id_arho = $arho->id_arho;
+
+        $kecamatan = $request['kecamatan'];
+
+        $kelurahan = $request['kelurahan'];
+
+        // $arr_kelurahan = explode(",", $kelurahan);
+
+        $time = strtotime($tgl_input);
+
+        $newformat = date('Y-m-d',$time);
+
+        $hitung = 0;
+
+        for($i=0;$i < count($kelurahan);$i++){
+        $penugasan_arho = new PenugasanArho;
+
+        $penugasan_arho->tgl_input = $newformat;
+
+        $penugasan_arho->id_arho = $id_arho;
+
+        $penugasan_arho->id_kelurahan = $kelurahan[$i];
+
+          $query = $penugasan_arho->save();
+
+          if($query){
+            $hitung++;
+          }
+        }
 
       
 
-        $avatar_path = $request['avatar_path'];
+            DB::commit();
 
-        if(is_null($avatar_path)){
-            $avatar_path = "";
-        }
-
-        $arho = new Arho;
-
-        $arho->nama_lengkap = $nama_lengkap;
-
-    
-
-        $arho->avatar = $avatar_path;
-
-        $query = $arho->save();
-
-        if($query){
             return 1;
+            // all good
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return 0;
+            // something went wrong
         }
 
-        else{
-            return 0;
-        }
+       
+
+       
+
+      
+
+      
     }
 
     public function softdelete_arho(Request $request)

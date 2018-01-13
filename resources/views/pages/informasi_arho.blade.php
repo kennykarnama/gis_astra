@@ -708,6 +708,14 @@ $('.li-arho-hapus').click(function  () {
 
         var avatar_path = "";
 
+        var tgl_input = $('#tgl_input').val();
+
+      //var id_arho = $('#arho').val();
+
+      var kecamatan = $('#kecamatan').val();
+
+      var kelurahan = $('#kelurahan').val();
+
         $.ajaxSetup({
                   headers: {
                       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -720,7 +728,10 @@ $('.li-arho-hapus').click(function  () {
                    data:{
 
                    'nama_lengkap':nama_lengkap,
-                   'avatar_path':avatar_path
+                   'avatar_path':avatar_path,
+                   'tgl_input':tgl_input,
+                   'kecamatan':kecamatan,
+                   'kelurahan':kelurahan
 
                    },
                    success:function(data){
