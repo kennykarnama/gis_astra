@@ -140,7 +140,7 @@ class KelurahanController extends Controller
                         'kelurahan.nama_kelurahan','kecamatan.nama_kecamatan')
     				 ->join('kecamatan','kecamatan.id_kecamatan','=','kelurahan.id_kecamatan')
     				 ->where('kelurahan.is_aktif','=',1)
-    				 ->get();
+                     ->paginate(6);
 
     	return $query;
     }
