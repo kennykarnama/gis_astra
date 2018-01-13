@@ -184,92 +184,91 @@
     };
 
     var listKelurahan = new List('div_kelurahan', options);
-    //   var tabel_kelurahan = $('#tabel_kelurahan').DataTable({
-    //       "scrollY":        "200px",
-    //     "scrollCollapse": true,
-    //   });
+   
 
-    //   $('#tabel_kelurahan tbody').on('click','.li-edit',function  () {
-    //     // body...
-    //       var id_kelurahan = $(this).data('idkelurahan');
+    $('.li-edit').click(function  () {
+      // body...
+         var id_kelurahan = $(this).data('idkelurahan');
 
-    //      $.ajaxSetup({
-    //               headers: {
-    //                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //               }
-    //           });
+         $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
 
 
-    //   $.ajax({
-    //                type:'POST',
-    //                url:'{{route("admin.list_kelurahan.fetch")}}',
-    //                data:{
+      $.ajax({
+                   type:'POST',
+                   url:'{{route("admin.list_kelurahan.fetch")}}',
+                   data:{
 
-    //               'id_kelurahan':id_kelurahan
-    //                },
-    //                success:function(data){
+                  'id_kelurahan':id_kelurahan
+                   },
+                   success:function(data){
 
-    //                 console.log(data);
+                    console.log(data);
 
-    //                   $('#id_kelurahan').val(data.id_kelurahan);
+                      $('#id_kelurahan').val(data.id_kelurahan);
 
-    //                   $('#edit_nama_kelurahan').val(data.nama_kelurahan);
+                      $('#edit_nama_kelurahan').val(data.nama_kelurahan);
 
-    //                   $('#edit_latitude').val(data.lat);
+                      $('#edit_latitude').val(data.lat);
 
-    //                   $('#edit_longitude').val(data.lng);
+                      $('#edit_longitude').val(data.lng);
 
-    //                   $('#edit_pilih_kecamatan').val(data.id_kecamatan);
+                      $('#edit_pilih_kecamatan').val(data.id_kecamatan);
 
 
 
-    //                   $('#modal-edit-kelurahan').modal('open');
+                      $('#modal-edit-kelurahan').modal('open');
 
-    //                     Materialize.updateTextFields();
+                        Materialize.updateTextFields();
 
-    //                      $('select').material_select();
+                         $('select').material_select();
                       
                      
-    //                }
-    //             });
-    //   });
+                   }
+                });
+    });
 
-    // $('#tabel_kelurahan tbody').on('click','.li-hapus',function  () {
-    //   // body...
-    //     var id_kelurahan = $(this).data('idkelurahan');
-
-
-
-    //      $.ajaxSetup({
-    //               headers: {
-    //                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //               }
-    //           });
+  $(".li-hapus").click(function  () {
+    // body...
+     var id_kelurahan = $(this).data('idkelurahan');
 
 
-    //   $.ajax({
-    //                type:'POST',
-    //                url:'{{route("admin.list_kelurahan.hapus")}}',
-    //                data:{
 
-    //               'id_kelurahan':id_kelurahan
-    //                },
-    //                success:function(data){
+         $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
 
-    //                 if(data==1){
-    //                   alert('Kelurahan berhasil dihapus');
 
-    //                   location.reload();
+      $.ajax({
+                   type:'POST',
+                   url:'{{route("admin.list_kelurahan.hapus")}}',
+                   data:{
 
-    //                 }
+                  'id_kelurahan':id_kelurahan
+                   },
+                   success:function(data){
 
-    //                 else{
-    //                   alert("Kelurahan tidak berhasil dihapus");
-    //                 }
+                    if(data==1){
+                      alert('Kelurahan berhasil dihapus');
+
+                      location.reload();
+
+                    }
+
+                    else{
+                      alert("Kelurahan tidak berhasil dihapus");
+                    }
                      
-    //                }
-    //             });
-    // });
+                   }
+                });
+  });
+
+   
 
 			$('#btn-edit-kecamatan').click(function  () {
 				// body...
