@@ -15,6 +15,7 @@ class Kecamatan extends Model
 
     protected $fillable = [
         'nama_kecamatan',
+        'luas_wilayah_km2',
         'lng',
         'lat',
         'is_aktif'

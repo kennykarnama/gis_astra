@@ -15,7 +15,6 @@ class Arho extends Model
 
     protected $fillable = [
         'nama_lengkap',
-        'nama_panggilan',
         'avatar',
         'is_aktif'
     ];

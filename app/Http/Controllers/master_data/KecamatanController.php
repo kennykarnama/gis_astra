@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\master_data;
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use App\Http\Controllers\Controller;
 use App\models\Kecamatan;
+
 
 class KecamatanController extends Controller
 {
@@ -37,6 +39,8 @@ class KecamatanController extends Controller
     	
     	$nama_kecamatan = $request['nama_kecamatan'];
 
+        $luas_wilayah_km2 = $request['luas_wilayah_km2'];
+
     	$lat = $request['lat'];
 
     	$lng  = $request['lng'];
@@ -45,6 +49,8 @@ class KecamatanController extends Controller
 
 
     	$kecamatan->nama_kecamatan = $nama_kecamatan;
+
+        $kecamatan->luas_wilayah_km2 = $luas_wilayah_km2;
 
     	$kecamatan->lat = $lat;
 
@@ -84,8 +90,9 @@ class KecamatanController extends Controller
     	$id_kecamatan = $request['id_kecamatan'];
 
     	
-
     	$nama_kecamatan = $request['nama_kecamatan'];
+
+        $luas_wilayah_km2 = $request['luas_wilayah_km2'];
 
     	$lat = $request['lat'];
 
@@ -94,6 +101,8 @@ class KecamatanController extends Controller
     	$kecamatan = Kecamatan::find($id_kecamatan);
 
     	$kecamatan->nama_kecamatan = $nama_kecamatan;
+
+        $kecamatan->luas_wilayah_km2 = $luas_wilayah_km2;
 
     	$kecamatan->lat = $lat;
 
@@ -131,7 +140,7 @@ class KecamatanController extends Controller
     }
 
     private function fetch_list_kecamatan(){
-    	$query = Kecamatan::where('kecamatan.is_aktif','=',1)->get();
+    	$query = Kecamatan::where('kecamatan.is_aktif','=',1)->paginate(6);
 
     	return $query;
     }

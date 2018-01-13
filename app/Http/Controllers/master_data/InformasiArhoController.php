@@ -151,7 +151,7 @@ class InformasiArhoController extends Controller
         # code...
         $nama_lengkap = $request['nama_lengkap'];
 
-        $nama_panggilan = $request['nama_panggilan'];
+      
 
         $avatar_path = $request['avatar_path'];
 
@@ -163,7 +163,7 @@ class InformasiArhoController extends Controller
 
         $arho->nama_lengkap = $nama_lengkap;
 
-        $arho->nama_panggilan = $nama_panggilan;
+    
 
         $arho->avatar = $avatar_path;
 
@@ -201,8 +201,7 @@ class InformasiArhoController extends Controller
 
         $nama_lengkap = $request['nama_lengkap'];
 
-        $nama_panggilan = $request['nama_panggilan'];
-
+      
         $avatar_path = $request['avatar_path'];
 
         if(is_null($avatar_path)){
@@ -214,7 +213,6 @@ class InformasiArhoController extends Controller
 
                         [
                             'nama_lengkap'=>$nama_lengkap,
-                            'nama_panggilan'=>$nama_panggilan,
                             'avatar'=>$avatar_path
                         ]
                         );
@@ -346,7 +344,7 @@ class InformasiArhoController extends Controller
 
     private function fetchListArho(){
     	
-    	$query = Arho::where('arho.is_aktif','=',1)->get();
+    	$query = Arho::where('arho.is_aktif','=',1)->paginate(3);
 
     	return $query;
     }

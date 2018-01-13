@@ -14,22 +14,35 @@
 	  
 	  <div id="arho-swipe" class="col s12" style="margin-top:15px;">
 
-    
 
 	  	<a class="waves-effect waves-light modal-trigger btn" href="#modal-tambah-arho">Tambah Arho</a>
 
-	  	<table class="table" id="tabel_daftar_arho">
+      <div class="row">
+          <form class="col s12">
+
+             <div class="input-field col s6">
+        <!--   <input  id="search_field" type="text" class="validate">
+          <label for="search_field">Search</label> -->
+        </div>
+
+         <div class="input-field col s6">
+          <input  id="search_field" type="text" class="validate search">
+          <label for="search_field">Search</label>
+        </div>
+
+          </form>
+      </div>
+	  	<table  id="tabel_daftar_arho">
         <thead>
           <tr>
           	  <th>No.</th>
           	  <th>Avatar</th>
-              <th>Nama Lengkap</th>
-              <th>Nama Panggilan</th>
+              <th>Nama</th>
               <th>Actions</th>
           </tr>
         </thead>
 
-        <tbody>
+        <tbody class="list">
 
         	@foreach($list_arho as $arho)
 
@@ -47,10 +60,11 @@
         				<img class="responsive-img" src="{{$arho->avatar}}">
         			</td>
         			@endif
-        			<td>{{$arho->nama_lengkap}}</td>
-        			<td>{{$arho->nama_panggilan}}</td>
+        			<td class="nama_arho">{{$arho->nama_lengkap}}</td>
+        		
         			<td>
-        				<a class='dropdown-button btn' href='#' data-activates='dropdown-arho-{{$arho->id_arho}}'>Actions</a>
+               
+        				<a class='dropdown-button btn' data-activates='dropdown-arho-{{$arho->id_arho}}'>Actions</a>
 
         			<!-- Dropdown Structure -->
 						  <ul id='dropdown-arho-{{$arho->id_arho}}' class='dropdown-content'>
@@ -65,6 +79,21 @@
 
       </table>
 
+      <div class="row">
+
+      <div class="col s4">
+      </div>
+
+      <div class="col s4">
+        {{$list_arho->links('paginator.default')}}
+      </div>
+
+      <div class="col s4">
+      </div>
+
+      
+
+      </div>
 	  </div>
 	  
 	  <div id="penugasan-swipe" class="col s12" style="margin-top:15px;">
@@ -220,16 +249,16 @@
 
               <input type="hidden" name="edit_id_arho" id="edit_id_arho">
               <div class="row">
-                <div class="input-field col s6">
+                <div class="input-field col s12">
                   <i class="material-icons prefix">account_circle</i>
                   <input id="edit_nama_lengkap" name="edit_nama_lengkap" type="text" class="validate">
                   <label for="edit_nama_lengkap">Nama Lengkap</label>
                 </div>
-                <div class="input-field col s6">
+               <!--  <div class="input-field col s6">
                   <i class="material-icons prefix">account_circle</i>
                   <input id="edit_nama_panggilan" type="text" class="validate">
                   <label for="edit_nama_panggilan">Nama Panggilan</label>
-                </div>
+                </div> -->
             </div>
 
             <div class="row">
@@ -313,16 +342,16 @@
             <form class="col s12">
 
               <div class="row">
-                <div class="input-field col s6">
+                <div class="input-field col s12">
                   <i class="material-icons prefix">account_circle</i>
                   <input id="nama_lengkap" name="nama_lengkap" type="text" class="validate">
-                  <label for="nama_lengkap">Nama Lengkap</label>
+                  <label for="nama_lengkap">Nama</label>
                 </div>
-                <div class="input-field col s6">
+               <!--  <div class="input-field col s6">
                   <i class="material-icons prefix">account_circle</i>
                   <input id="nama_panggilan" type="text" class="validate">
                   <label for="nama_panggilan">Nama Panggilan</label>
-                </div>
+                </div> -->
             </div>
 
             <div class="row">
@@ -355,24 +384,23 @@
 
 @push('scripts')
 
-<script type="text/javascript" src="{{asset('js/dataTables.materialize.js')}}"></script>
+<!-- <script type="text/javascript" src="{{asset('js/dataTables.materialize.js')}}"></script> -->
 
-
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
 
 <script type="text/javascript">
   $(document).ready(function () {
     // body..
+    var options = {
+        valueNames: [ 'nama_arho']
+    };
 
-    $('#tabel_daftar_arho').DataTable({
-        
-        "scrollY":        "200px",
-        "scrollCollapse": true,
+    var arhoList = new List('arho-swipe', options);
+    
 
-    });
-
-    $('#tabel_daftar_arho tbody').on('click','.li-arho-edit',function  () {
-      // body...
-         var id_arho = $(this).data('idarho');
+ $('.li-arho-edit').click(function  () {
+   // body...
+     var id_arho = $(this).data('idarho');
 
         $.ajaxSetup({
                   headers: {
@@ -397,7 +425,6 @@
 
                       $('#edit_nama_lengkap').val(data.nama_lengkap);
 
-                      $('#edit_nama_panggilan').val(data.nama_panggilan);
 
                        Materialize.updateTextFields();
 
@@ -406,11 +433,11 @@
                    }
                 });
 
-    });
+ });
 
-    $('#tabel_daftar_arho tbody').on('click','.li-arho-hapus',function  () {
-      // body...
-          var id_arho = $(this).data('idarho');
+$('.li-arho-hapus').click(function  () {
+  // body...
+       var id_arho = $(this).data('idarho');
 
         $.ajaxSetup({
                   headers: {
@@ -439,8 +466,7 @@
                       }
                    }
                 });
-
-    });
+});
 
     $('#btn-simpan-edit-penugasan').click(function () {
       
@@ -723,7 +749,7 @@
 
         var nama_lengkap = $('#nama_lengkap').val();
 
-        var nama_panggilan = $('#nama_panggilan').val();
+        // var nama_panggilan = $('#nama_panggilan').val();
 
         var avatar_path = "";
 
@@ -739,7 +765,6 @@
                    data:{
 
                    'nama_lengkap':nama_lengkap,
-                   'nama_panggilan':nama_panggilan,
                    'avatar_path':avatar_path
 
                    },

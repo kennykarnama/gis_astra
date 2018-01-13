@@ -7,30 +7,50 @@
 
 @section('content')
 
-<div class="row" style="margin-top:15px;">
+
+
+<div class="row" style="margin-top:15px;" id="div_kecamatan">
 
 	<div class="col s8">
 
+
 		<a class="waves-effect waves-light modal-trigger btn" href="#modal-tambah-kecamatan">Tambah Kecamatan</a>
 
-		<table class="bordered highlight centered responsive-table" id="tabel_kecamatan">
+		<div class="row">
+          <form class="col s12">
+
+             <div class="input-field col s6">
+      
+        </div>
+
+         <div class="input-field col s6">
+          <input  id="search_field" type="text" class="validate search">
+          <label for="search_field">Search</label>
+        </div>
+
+          </form>
+      </div>
+
+    <table class="bordered highlight centered responsive-table" id="tabel_kecamatan">
         <thead>
           <tr>
           	  <th>No.</th>
               <th>Nama Kecamatan</th>
+              <th>Luas Wilayah (Km2)</th>
               <th>Latitude</th>
               <th>Longitude</th>
               <th>Actions</th>
           </tr>
         </thead>
 
-        <tbody>
+        <tbody class="list">
 
         	@foreach($list_kecamatan as $kecamatan)
 
         		<tr>
         		<td>{{$loop->index+1}}</td>
-        		<td>{{$kecamatan->nama_kecamatan}}</td>
+        		<td class="nama_kecamatan">{{$kecamatan->nama_kecamatan}}</td>
+            <td>{{$kecamatan->luas_wilayah_km2}}</td>
         		<td>{{$kecamatan->lat}}</td>
         		<td>{{$kecamatan->lng}}</td>
         		<td>
@@ -52,6 +72,8 @@
         </tbody>
       </table>
 
+      {{$list_kecamatan->links('paginator.default')}}
+
 	</div>
 
 </div>
@@ -62,10 +84,16 @@
       <div class="row">
       	<form class="col s12">
 
-      		<div class="input-field col s12">
+      		<div class="input-field col s6">
       			<input type="text" name="nama_kecamtan" id="nama_kecamatan" class="validate">
       			<label for="nama_kecamatan">Nama Kecamatan</label>
       		</div>
+
+        <div class="input-field col s6">
+            <input type="number" name="luas_wilayah" id="luas_wilayah" class="validate">
+            <label for="luas_wilayah">Luas Wilayah</label>
+          </div>
+
 
       		<div class="input-field col s6">
       			<input type="number" name="latitude" id="latitude" class="validate">
@@ -98,6 +126,11 @@
       			<label for="nama_kecamatan">Nama Kecamatan</label>
       		</div>
 
+            <div class="input-field col s6">
+            <input type="number" name="edit_luas_wilayah" id="edit_luas_wilayah" class="validate">
+            <label for="edit_luas_wilayah">Luas Wilayah</label>
+          </div>
+
       		<div class="input-field col s6">
       			<input type="number" name="edit_latitude" id="edit_latitude" class="validate">
       			<label for="latitude">Latitude</label>
@@ -125,96 +158,103 @@
 
 @push('scripts')
 	
-  <script type="text/javascript" src="{{asset('js/dataTables.materialize.js')}}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
 
 	<script type="text/javascript">
 		
 		$(document).ready(function () {
 			// body...
 
-      var tabel_kecamatan = $('#tabel_kecamatan').DataTable({
-          "scrollY":        "200px",
-        "scrollCollapse": true,
-        "destory":true,
-      });
+       var options = {
+        valueNames: [ 'nama_kecamatan']
+    };
 
-      $('#tabel_kecamatan tbody').on('click','.li-edit',function () {
-        // body...
+    var listKecamatan = new List('div_kecamatan', options);
+    //   var tabel_kecamatan = $('#tabel_kecamatan').DataTable({
+    //       "scrollY":        "200px",
+    //     "scrollCollapse": true,
+    //     "destory":true,
+    //   });
 
-        var id_kecamatan = $(this).data('idkecamatan');
+    //   $('#tabel_kecamatan tbody').on('click','.li-edit',function () {
+    //     // body...
 
-         $.ajaxSetup({
-                  headers: {
-                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                  }
-              });
+    //     var id_kecamatan = $(this).data('idkecamatan');
 
-
-      $.ajax({
-                   type:'POST',
-                   url:'{{route("admin.list_kecamatan.fetch")}}',
-                   data:{
-
-                  'id_kecamatan':id_kecamatan
-                   },
-                   success:function(data){
-
-                    console.log(data);
-
-                      $('#id_kecamatan').val(data.id_kecamatan);
-
-                      $('#edit_nama_kecamatan').val(data.nama_kecamatan);
-
-                      $('#edit_latitude').val(data.lat);
-
-                      $('#edit_longitude').val(data.lng);
+    //      $.ajaxSetup({
+    //               headers: {
+    //                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //               }
+    //           });
 
 
+    //   $.ajax({
+    //                type:'POST',
+    //                url:'{{route("admin.list_kecamatan.fetch")}}',
+    //                data:{
 
-                      $('#modal-edit-kecamatan').modal('open');
+    //               'id_kecamatan':id_kecamatan
+    //                },
+    //                success:function(data){
 
-                        Materialize.updateTextFields();
+    //                 console.log(data);
+
+    //                   $('#id_kecamatan').val(data.id_kecamatan);
+
+    //                   $('#edit_nama_kecamatan').val(data.nama_kecamatan);
+
+    //                   $('#edit_latitude').val(data.lat);
+
+    //                   $('#edit_longitude').val(data.lng);
+
+    //                   $('#edit_luas_wilayah').val(data.luas_wilayah_km2);
+
+
+
+    //                   $('#modal-edit-kecamatan').modal('open');
+
+    //                     Materialize.updateTextFields();
                       
                      
-                   }
-                });
+    //                }
+    //             });
 
-      });
+    //   });
 
-    $('#tabel_kecamatan tbody').on('click','.li-hapus',function  () {
-      // body...
-        var id_kecamatan = $(this).data('idkecamatan');
+    // $('#tabel_kecamatan tbody').on('click','.li-hapus',function  () {
+    //   // body...
+    //     var id_kecamatan = $(this).data('idkecamatan');
 
-         $.ajaxSetup({
-                  headers: {
-                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                  }
-              });
+    //      $.ajaxSetup({
+    //               headers: {
+    //                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //               }
+    //           });
 
 
-      $.ajax({
-                   type:'POST',
-                   url:'{{route("admin.list_kecamatan.hapus")}}',
-                   data:{
+    //   $.ajax({
+    //                type:'POST',
+    //                url:'{{route("admin.list_kecamatan.hapus")}}',
+    //                data:{
 
-                  'id_kecamatan':id_kecamatan
-                   },
-                   success:function(data){
+    //               'id_kecamatan':id_kecamatan
+    //                },
+    //                success:function(data){
 
-                    if(data==1){
-                      alert('Kecamatan berhasil dihapus');
+    //                 if(data==1){
+    //                   alert('Kecamatan berhasil dihapus');
 
-                      location.reload();
+    //                   location.reload();
 
-                    }
+    //                 }
 
-                    else{
-                      alert("Kecamatan tidak berhasil dihapus");
-                    }
+    //                 else{
+    //                   alert("Kecamatan tidak berhasil dihapus");
+    //                 }
                      
-                   }
-                });
-    });
+    //                }
+    //             });
+    // });
 
 			$('#btn-edit-kecamatan').click(function  () {
 				// body...
@@ -225,6 +265,8 @@
 				var lat = $('#edit_latitude').val();
 
 				var lng = $('#edit_longitude').val();
+
+        var luas_wilayah_km2 = $('#edit_luas_wilayah').val();
 
 						 $.ajaxSetup({
                   headers: {
@@ -240,6 +282,7 @@
 
                  	'id_kecamatan':id_kecamatan,
                  	'nama_kecamatan':nama_kecamatan,
+                  'luas_wilayah_km2':luas_wilayah_km2,
                  	'lat':lat,
                  	'lng':lng
                    },
@@ -272,6 +315,8 @@
 
 				var lng = $('#longitude').val();
 
+        var luas_wilayah_km2 = $('#luas_wilayah').val();
+
 				//alert(nama_kecamatan+" ");
 
 				 $.ajaxSetup({
@@ -287,6 +332,7 @@
                    data:{
 
                   'nama_kecamatan':nama_kecamatan,
+                  'luas_wilayah_km2':luas_wilayah_km2,
                   'lat':lat,
                   'lng':lng
 
