@@ -72,7 +72,15 @@
         </tbody>
       </table>
 
-      {{$list_kecamatan->links('paginator.default')}}
+      <div class="row">
+        
+        <div class="center-align">
+          {{$list_kecamatan->links('paginator.default')}}
+        </div>
+       
+      </div>
+
+      
 
 	</div>
 
@@ -170,91 +178,86 @@
     };
 
     var listKecamatan = new List('div_kecamatan', options);
-    //   var tabel_kecamatan = $('#tabel_kecamatan').DataTable({
-    //       "scrollY":        "200px",
-    //     "scrollCollapse": true,
-    //     "destory":true,
-    //   });
+   
+$('.li-edit').click(function  () {
+  // body...
+    var id_kecamatan = $(this).data('idkecamatan');
 
-    //   $('#tabel_kecamatan tbody').on('click','.li-edit',function () {
-    //     // body...
-
-    //     var id_kecamatan = $(this).data('idkecamatan');
-
-    //      $.ajaxSetup({
-    //               headers: {
-    //                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //               }
-    //           });
+         $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
 
 
-    //   $.ajax({
-    //                type:'POST',
-    //                url:'{{route("admin.list_kecamatan.fetch")}}',
-    //                data:{
+      $.ajax({
+                   type:'POST',
+                   url:'{{route("admin.list_kecamatan.fetch")}}',
+                   data:{
 
-    //               'id_kecamatan':id_kecamatan
-    //                },
-    //                success:function(data){
+                  'id_kecamatan':id_kecamatan
+                   },
+                   success:function(data){
 
-    //                 console.log(data);
+                    console.log(data);
 
-    //                   $('#id_kecamatan').val(data.id_kecamatan);
+                      $('#id_kecamatan').val(data.id_kecamatan);
 
-    //                   $('#edit_nama_kecamatan').val(data.nama_kecamatan);
+                      $('#edit_nama_kecamatan').val(data.nama_kecamatan);
 
-    //                   $('#edit_latitude').val(data.lat);
+                      $('#edit_latitude').val(data.lat);
 
-    //                   $('#edit_longitude').val(data.lng);
+                      $('#edit_longitude').val(data.lng);
 
-    //                   $('#edit_luas_wilayah').val(data.luas_wilayah_km2);
+                      $('#edit_luas_wilayah').val(data.luas_wilayah_km2);
 
 
 
-    //                   $('#modal-edit-kecamatan').modal('open');
+                      $('#modal-edit-kecamatan').modal('open');
 
-    //                     Materialize.updateTextFields();
+                        Materialize.updateTextFields();
                       
                      
-    //                }
-    //             });
+                   }
+                });
 
-    //   });
+});
 
-    // $('#tabel_kecamatan tbody').on('click','.li-hapus',function  () {
-    //   // body...
-    //     var id_kecamatan = $(this).data('idkecamatan');
+$('.li-hapus').click(function  () {
+  // body...
+     var id_kecamatan = $(this).data('idkecamatan');
 
-    //      $.ajaxSetup({
-    //               headers: {
-    //                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //               }
-    //           });
+         $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
 
 
-    //   $.ajax({
-    //                type:'POST',
-    //                url:'{{route("admin.list_kecamatan.hapus")}}',
-    //                data:{
+      $.ajax({
+                   type:'POST',
+                   url:'{{route("admin.list_kecamatan.hapus")}}',
+                   data:{
 
-    //               'id_kecamatan':id_kecamatan
-    //                },
-    //                success:function(data){
+                  'id_kecamatan':id_kecamatan
+                   },
+                   success:function(data){
 
-    //                 if(data==1){
-    //                   alert('Kecamatan berhasil dihapus');
+                    if(data==1){
+                      alert('Kecamatan berhasil dihapus');
 
-    //                   location.reload();
+                      location.reload();
 
-    //                 }
+                    }
 
-    //                 else{
-    //                   alert("Kecamatan tidak berhasil dihapus");
-    //                 }
+                    else{
+                      alert("Kecamatan tidak berhasil dihapus");
+                    }
                      
-    //                }
-    //             });
-    // });
+                   }
+                });
+});
+
 
 			$('#btn-edit-kecamatan').click(function  () {
 				// body...
