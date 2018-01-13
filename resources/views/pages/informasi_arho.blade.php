@@ -2,14 +2,14 @@
 
 @section('content')
 
-<div class="row">
+<div class="row" style="margin-">
 
-	<ul id="tabs-swipe-demo" class="tabs">
+	<!-- <ul id="tabs-swipe-demo" class="tabs">
     <li class="tab col s3"><a href="#arho-swipe">Arho</a></li>
-    <li class="tab col s3"><a href="#penugasan-swipe">Penugasan</a></li>
+   
     
   	</ul>
-
+ -->
 
 	  
 	  <div id="arho-swipe" class="col s12" style="margin-top:15px;">
@@ -96,104 +96,13 @@
       </div>
 	  </div>
 	  
-	  <div id="penugasan-swipe" class="col s12" style="margin-top:15px;">
-
-      <a class="waves-effect waves-light modal-trigger btn" href="#modal-tambah-penugasan-arho">Tambah Penugasan Arho</a>
-
-
-
-      @for($i = 0; $i < count($susunan_penugasan); $i++)
-
-        <?php
-            $kelurahan = $susunan_penugasan[$i]['kelurahan'];
-        ?>
-
-        <ul class="collapsible" data-collapsible="expandable">
-            <li>
-
-              <div class="collapsible-header">Kecamatan {{$susunan_penugasan[$i]['nama_kecamatan']}}
-                
-                <!-- <a style="margin-left:20px;"class="waves-effect waves-light modal-trigger btn" href="#modal-kelola-penugasan-arho">Kelola Penugasan Arho</a> -->
-                
-              </div>
-              <div class="collapsible-body">
-
-
-
-                @for($j=0; $j < count($kelurahan); $j++)
-
-              
-
-                  <?php
-                    
-                    $penugasan = $kelurahan[$j]['penugasan'];
-
-
-                  ?>
-
-                
-
-                  <ul class="collapsible" data-collapsible="expandble">
-
-                    <li>
-                      <div class="collapsible-header" style="text-align:left;">
-                        
-                        <div class="row">
-                            <div class="col s8">
-                             
-                              Kelurahan {{$kelurahan[$j]['nama_kelurahan']}}
-                              
-                            </div>
-
-                            <div class="col s4">
-                              
-                                <a class="waves-effect waves-light btn red btn-edit-penugasan"
-                                data-idkelurahan="{{$kelurahan[$j]['id_kelurahan']}}"
-                                >Edit</a>
-                            </div>
-                        </div>
-                        
-
-                        </div>
-                      
-                      <div class="collapsible-body">
-
-                        <p><b>Daftar Arho</b></p>
-
-                         <ul class="collection">
-
-                           @for($k = 0; $k < count($penugasan);  $k++)
-                            <li class="collection-item">{{$penugasan[$k]['nama_arho']}}</li>
-                          @endfor
-                           
-                        </ul>
-
-                        
-                         
-                      </div>
-                    </li>
-
-                  </ul>
-
-                  
-
-                @endfor
-
-              </div>
-            </li>
-        </ul>
-
-      @endfor
-      
+	</div>
   
 
-	  </div>
-  
-
-</div>
+<!-- </div> -->
 
 <!-- Modal Structure -->
-  <div id="modal-edit-penugasan-arho" class="modal">
+  <!-- <div id="modal-edit-penugasan-arho" class="modal">
     <div class="modal-content">
       
       <form class="col-12">
@@ -239,7 +148,7 @@
       <a href="#!" class="waves-effect waves-green btn green" id="btn-simpan-edit-penugasan">Simpan</a>
     </div>
   </div>
-
+ -->
 <!-- Modal Structure -->
   <div id="modal-edit-arho" class="modal">
     <div class="modal-content">
@@ -248,18 +157,44 @@
             <form class="col s12">
 
               <input type="hidden" name="edit_id_arho" id="edit_id_arho">
-              <div class="row">
+            
                 <div class="input-field col s12">
-                  <i class="material-icons prefix">account_circle</i>
+                
                   <input id="edit_nama_lengkap" name="edit_nama_lengkap" type="text" class="validate">
                   <label for="edit_nama_lengkap">Nama Lengkap</label>
-                </div>
-               <!--  <div class="input-field col s6">
-                  <i class="material-icons prefix">account_circle</i>
-                  <input id="edit_nama_panggilan" type="text" class="validate">
-                  <label for="edit_nama_panggilan">Nama Panggilan</label>
-                </div> -->
+               
+             
             </div>
+
+             <input type="hidden" id="id_kelurahan_penugasan" name="id_kelurahan_penugasan">
+
+          <div class="input-field col s12">
+            <input placeholder="Tgl Input" id="tgl_input_penugasan" name="tgl_input_penugasan" type="text"
+            class="datepicker"
+            >
+
+            <label for="tgl_input_penugasan">Tgl Input</label>
+          </div>
+
+
+            <div class="input-field col s12">
+            <select id="edit_kecamatan" nama="edit_kecamatan">
+              <option value="" disabled selected>Pilih Kecamatan</option>
+              @foreach($list_kecamatan as $kecamatan)
+                <option value="{{$kecamatan->id_kecamatan}}">{{$kecamatan->nama_kecamatan}}</option>
+              @endforeach
+            </select>
+           <label>Kecamatan</label>
+          </div>
+
+          <div class="input-field col s12">
+            <select multiple id="edit_kelurahan" nama="edit_kelurahan">
+              <option value="" disabled selected>Pilih Kelurahan</option>
+             
+            </select>
+           <label>Kelurahan</label>
+          </div>
+
 
             <div class="row">
 
@@ -287,7 +222,7 @@
   </div>
 
 <!-- Modal Structure -->
-  <div id="modal-tambah-penugasan-arho" class="modal">
+<!--   <div id="modal-tambah-penugasan-arho" class="modal">
     <div class="modal-content">
       <div class="row">
         <form class="col s12">
@@ -332,7 +267,7 @@
      <button class="modal-action modal-close waves-effect waves-red btn-flat">Batal</button>
     <button class="waves-effect waves-green btn-flat" id="btn-tambah-penugasan-arho">Simpan</button>
     </div>
-  </div>
+  </div> -->
 
 <!-- Modal Structure -->
   <div id="modal-tambah-arho" class="modal">
@@ -341,18 +276,38 @@
           <div class="row">
             <form class="col s12">
 
-              <div class="row">
+           
                 <div class="input-field col s12">
-                  <i class="material-icons prefix">account_circle</i>
+               
                   <input id="nama_lengkap" name="nama_lengkap" type="text" class="validate">
                   <label for="nama_lengkap">Nama</label>
                 </div>
-               <!--  <div class="input-field col s6">
-                  <i class="material-icons prefix">account_circle</i>
-                  <input id="nama_panggilan" type="text" class="validate">
-                  <label for="nama_panggilan">Nama Panggilan</label>
-                </div> -->
-            </div>
+          
+           
+             <div class="input-field col s12">
+              <input type="text" class="datepicker" id="tgl_input">
+              <label>Tanggal Input</label>
+          </div>
+
+
+          <div class="input-field col s12">
+            <select id="kecamatan" nama="kecamatan">
+              <option value="" disabled selected>Pilih Kecamatan</option>
+              @foreach($list_kecamatan as $kecamatan)
+                <option value="{{$kecamatan->id_kecamatan}}">{{$kecamatan->nama_kecamatan}}</option>
+              @endforeach
+            </select>
+           <label>Kecamatan</label>
+          </div>
+
+          <div class="input-field col s12">
+            <select multiple id="kelurahan" nama="kelurahan">
+              <option value="" disabled selected>Pilih Kelurahan</option>
+             
+            </select>
+           <label>Kelurahan</label>
+          </div>
+
 
             <div class="row">
 
