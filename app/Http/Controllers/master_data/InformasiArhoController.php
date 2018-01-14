@@ -30,14 +30,17 @@ class InformasiArhoController extends Controller
 
         $list_kelurahan = $this->fetchKelurahan();
 
-       // dd($susunan_penugasan);
+        $list_kelurahan_kecamatan = $this->fetchJoinedKelurahan();
+
+    //    dd($list_kelurahan_kecamatan);
 
     	return view('pages/informasi_arho',
     		[
     			'list_arho'=>$list_arho,
                 'susunan_penugasan'=>$susunan_penugasan,
                 'list_kelurahan'=>$list_kelurahan,
-                'list_kecamatan'=>$list_kecamatan
+                'list_kecamatan'=>$list_kecamatan,
+                'list_kelurahan_kecamatan'=>$list_kelurahan_kecamatan
     		]
     		);
     }
@@ -273,11 +276,19 @@ class InformasiArhoController extends Controller
       
         $avatar_path = $request['avatar_path'];
 
+        $tgl_input = $request['tgl_input'];
+
+        $arr_kelurahan = $request['arr_kelurahan'];
+
         if(is_null($avatar_path)){
             $avatar_path = "";
         }
 
-        $query = Arho::where('arho.id_arho','=',$id_arho)
+        DB::beginTransaction();
+
+        try {
+            
+            $query = Arho::where('arho.id_arho','=',$id_arho)
                        ->update(
 
                         [
@@ -286,12 +297,38 @@ class InformasiArhoController extends Controller
                         ]
                         );
 
-        if($query){
+            // insert sesuai dengan arr kelurahan
+
+            for($i = 0; $i < count($arr_kelurahan); $i++){
+                
+                $penugasan_arho = new PenugasanArho;
+
+                $penugasan_arho->id_arho = $id_arho;
+
+                $penugasan_arho->id_kelurahan = $arr_kelurahan[$i];
+
+                $penugasan_arho->tgl_input = $tgl_input;
+
+                $penugasan_arho->is_aktif = 1;
+
+                $penugasan_arho->save();
+
+            }
+            
+            DB::commit();
+
             return 1;
-        }
-        else{
+            // all good
+        } catch (\Exception $e) {
+            DB::rollback();
+
             return 0;
+            // something went wrong
         }
+
+        
+
+        
     }
 
     public function get_arho_by_id(Request $request)
@@ -404,6 +441,44 @@ class InformasiArhoController extends Controller
         }
 
         return $susunan_penugasan;
+    }
+
+    private function fetchJoinedKelurahan(){
+      
+      $list_kelurahan = $this->fetchKelurahan();
+
+      $list_kecamatan = $this->fetchKecamatan();
+
+        $final_array = array();
+
+        foreach ($list_kecamatan as $kecamatan) {
+            # code...
+
+            $tmp_kecamatan = array(
+                    'id_kecamatan'=>$kecamatan->id_kecamatan,
+                    'nama_kecamatan'=>$kecamatan->nama_kecamatan
+                );
+
+            $arr_kelurahan_per_kecamatan = array();
+
+            foreach ($list_kelurahan as $kelurahan) {
+                # code...
+                if($kelurahan->id_kecamatan == $kecamatan->id_kecamatan){
+                    $tmp_kelurahan = array(
+                        'id_kelurahan'=>$kelurahan->id_kelurahan,
+                        'nama_kelurahan'=>$kelurahan->nama_kelurahan
+                        );
+
+                    array_push($arr_kelurahan_per_kecamatan, $tmp_kelurahan);
+                }
+            }
+
+            $tmp_kecamatan['kelurahan'] = $arr_kelurahan_per_kecamatan;
+
+            array_push($final_array, $tmp_kecamatan);
+        }
+
+        return $final_array;
     }
 
     private function fetchKelurahan(){

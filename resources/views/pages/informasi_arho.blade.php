@@ -6,12 +6,6 @@
 
 <div class="row" style="margin-">
 
-	<!-- <ul id="tabs-swipe-demo" class="tabs">
-    <li class="tab col s3"><a href="#arho-swipe">Arho</a></li>
-   
-    
-  	</ul>
- -->
 
 	  
 	  <div id="arho-swipe" class="col s12" style="margin-top:15px;">
@@ -142,6 +136,8 @@
             <label for="tgl_input_penugasan">Tgl Input</label>
           </div>
 
+          <input type="hidden" name="id_penugasan_arho" id="id_penugasan_arho">
+
           <div class="col s12" style="margin-bottom:15px;">
             <a class="waves-effect waves-light btn" id="btn-tambah-penugasan-edit">Tambah Penugasan</a>
           </div>
@@ -150,30 +146,39 @@
 
           <div id="tambah_penugasan_arho" style="display:none;">
 
-                <div class="input-field col s12">
-            <select id="edit_kecamatan" nama="edit_kecamatan">
-              <option value="" disabled selected>Pilih Kecamatan</option>
-              @foreach($list_kecamatan as $kecamatan)
-                <option value="{{$kecamatan->id_kecamatan}}">{{$kecamatan->nama_kecamatan}}</option>
-              @endforeach
-            </select>
-           <label>Kecamatan</label>
+            <div class="input-field col s12">
+
+              <select multiple id="edit_wilayah">
+
+                @for($i=0; $i < count($list_kelurahan_kecamatan); $i++)
+
+                  @php
+                    $kecamatan = $list_kelurahan_kecamatan[$i];
+
+                    $list_kelurahan = $kecamatan['kelurahan'];
+                  @endphp
+
+                  <optgroup label="{{$kecamatan['nama_kecamatan']}}">
+
+                      @for($j=0;$j < count($list_kelurahan); $j++)
+                         <option value="{{$list_kelurahan[$j]['id_kelurahan']}}">{{$list_kelurahan[$j]['nama_kelurahan']}}</option>
+                      @endfor
+                     
+                  </optgroup>
+
+                @endfor
+               
+              </select>
+              <label>Wilayah Penugasan</label>
+
+
+              
           </div>
 
-          <div class="input-field col s12">
-
-          
-              <select   multiple id="edit_kelurahan" nama="edit_kelurahan" >
-              <option value="" disabled selected>Pilih Kelurahan</option>
-             
-            </select>
-             <label for="edit_kelurahan">Kelurahan</label>
-          
-          </div>
+            
 
           </div>
 
-        
 
           <ul class="collection with-header" id="list_penugasan_arho">
 
@@ -284,6 +289,18 @@ function is_exist_id_kecamatan (arr_obj, id_kecamatan) {
   return false;
 }
 
+function match_with_penugasan (id_kelurahan,penugasan_arho) {
+  // body...
+  for(var i=0;i<penugasan_arho.length;i++){
+    var item = penugasan_arho[i];
+
+    if(item.id_kelurahan==id_kelurahan)
+      return true;
+  }
+
+  return false;
+}
+
 function insert_kelurahan_in_kecamatan (arr_obj,obj_kelurahan) {
   // body...
   for(var i=0;i<arr_obj.length;i++){
@@ -357,6 +374,10 @@ function theFunction (event) {
 
                       var penugasan_arho = data.penugasan_arho;
 
+                      console.log('ken');
+
+                      console.log(penugasan_arho);
+
                       // fill master info arho
 
                       $('#edit_id_arho').val(arho[0].id_arho);
@@ -370,6 +391,7 @@ function theFunction (event) {
 
                         $('#tgl_input_penugasan').val(penugasan_arho[0].tgl_input);
 
+
                         // iterate
                           
                         var arr_id_kecamatan = [];
@@ -380,7 +402,7 @@ function theFunction (event) {
 
                         for(var i=0;i<data.penugasan_arho.length;i++){
 
-                          var penugasan_arho = data.penugasan_arho;
+                          
 
                           var item = penugasan_arho[i];
 
@@ -403,7 +425,7 @@ function theFunction (event) {
 
                         }
 
-
+                        console.log('zaf');
                         console.log(arr_obj_kecamatan);
                         // get unique id kecamatan
 
@@ -436,9 +458,9 @@ function theFunction (event) {
                              },
                              success:function(data){
 
-                              console.log(data);
+                              //console.log(data);
 
-                              var info_penugasan_arho = arr_obj_kecamatan;
+                             // var info_penugasan_arho = arr_obj_kecamatan;
 
                               // clear 
 
@@ -461,27 +483,32 @@ function theFunction (event) {
 
                                  };
 
-                                 insert_kelurahan_in_kecamatan(info_penugasan_arho,obj_kelurahan);
 
+                                if(match_with_penugasan(item.id_kelurahan,penugasan_arho)){
+                                 insert_kelurahan_in_kecamatan(arr_obj_kecamatan,obj_kelurahan);
+                                  arr_id_kelurahan.push(item.id_kelurahan);
+ 
+                                }
+                                 
 
                                  //alert(item.id_kelurahan);
 
                                  var select_var = "<option value='"+item.id_kelurahan+"'>"+item.nama_kelurahan+"</option>";
 
-                                 arr_id_kelurahan.push(item.id_kelurahan);
+                                
 
-                                // $('#edit_kelurahan').append(select_var);
-
-                                 
+                                // $('#edit_kelurahan').append(select_var)
 
 
                                }
 
-                               console.log(info_penugasan_arho);
+                             //  console.log(info_penugasan_arho);
 
                                // populate list penugasan arho
 
                                $('#list_penugasan_arho').empty();
+
+                               var info_penugasan_arho = arr_obj_kecamatan;
 
                                for(var a = 0; a < info_penugasan_arho.length; a++){
                                 
@@ -512,9 +539,10 @@ function theFunction (event) {
                                   $("#list_penugasan_arho").append(append_str);
                                }
 
-                              $('#edit_kelurahan').val(arr_id_kelurahan);
+                               //console.log(arr_id_kelurahan);
+                               $('#edit_wilayah').val(arr_id_kelurahan);
 
-                             // $('select').material_select('destroy');
+
 
                                $('select').material_select();
 
@@ -824,7 +852,7 @@ $('.li-arho-hapus').click(function  () {
                    },
                    success:function(data){
 
-                    $("#edit_kelurahan").empty();
+                  $("#edit_kelurahan").empty();
                       
                       for(var i=0;i<data.length;i++){
 
@@ -854,9 +882,16 @@ $('.li-arho-hapus').click(function  () {
 
       var nama_lengkap = $('#edit_nama_lengkap').val();
 
-      var nama_panggilan = $('#edit_nama_panggilan').val();
+      
 
       var avatar_path = $('#edit_avatar_path').val();
+
+      var arr_kelurahan = $('#edit_wilayah').val();
+
+      var tgl_input = $('#tgl_input_penugasan').val();
+
+      //alert(edit_wilayah);
+     
 
       $.ajaxSetup({
                   headers: {
@@ -871,8 +906,10 @@ $('.li-arho-hapus').click(function  () {
 
                     'id_arho':id_arho,
                     'nama_lengkap':nama_lengkap,
-                    'nama_panggilan':nama_panggilan,
-                    'avatar_path':avatar_path
+                    'avatar_path':avatar_path,
+                    'arr_kelurahan':arr_kelurahan,
+                    'tgl_input':tgl_input
+
 
 
                    },
