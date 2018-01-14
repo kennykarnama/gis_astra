@@ -158,7 +158,7 @@
                     $list_kelurahan = $kecamatan['kelurahan'];
                   @endphp
 
-                  <optgroup label="{{$kecamatan['nama_kecamatan']}}">
+                  <optgroup label="Kecamatan {{$kecamatan['nama_kecamatan']}}">
 
                       @for($j=0;$j < count($list_kelurahan); $j++)
                          <option value="{{$list_kelurahan[$j]['id_kelurahan']}}">{{$list_kelurahan[$j]['nama_kelurahan']}}</option>
@@ -314,7 +314,7 @@ function insert_kelurahan_in_kecamatan (arr_obj,obj_kelurahan) {
   }
 }
 
-function theFunction (event) {
+function hapusPenugasanArho (event) {
   // body...
  
  var url = event.getAttribute('href');
@@ -325,7 +325,36 @@ function theFunction (event) {
 
  var id_kelurahan = event.getAttribute('data-idkelurahan');
 
- alert(id_arho+" "+id_kecamatan+" "+id_kelurahan);
+  $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
+
+         $.ajax({
+                   type:'POST',
+                   url:'{{route("admin.informasi_arho.hapus_penugasan")}}',
+                   data:{
+
+                    'id_arho':id_arho,
+                    'id_kelurahan':id_kelurahan
+
+
+                   },
+                   success:function(data){
+                      if(data==1){
+                        alert('Penugasan berhasil dihapus');
+
+                        location.reload();
+                      }
+
+                      else{
+                        alert('Penugasan tidak berhasil dihapus');
+                      }
+                   }
+                });
+
+//alert(id_arho+" "+id_kelurahan);
 
  return false;
 
@@ -531,7 +560,7 @@ function theFunction (event) {
                                     append_str += "<li class='collection-item'>"+"<div>"+item_kelurahan+"<a href='#!'"+"data-idkecamatan='"+item_kecamatan.id_kecamatan+"'"
                                     +"data-idarho='"+no_arho+"'"+"data-idkelurahan='"+arr_kelurahan[b].id_kelurahan+"'"
 
-                                    +"onclick='return theFunction(this); return false;' class='secondary-content'>"
+                                    +"onclick='return hapusPenugasanArho(this); return false;' class='secondary-content'>"
                                     +"<i class='material-icons'>delete_forever</i></a></div>"+"</li>";
 
                                   }
@@ -540,7 +569,7 @@ function theFunction (event) {
                                }
 
                                //console.log(arr_id_kelurahan);
-                               $('#edit_wilayah').val(arr_id_kelurahan);
+                               //$('#edit_wilayah').val(arr_id_kelurahan);
 
 
 

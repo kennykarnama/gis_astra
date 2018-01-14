@@ -57,6 +57,8 @@ Route::post('/informasi_arho/get_info_penugasan', ['uses' => 'master_data\Inform
 
 Route::post('/arho/fetch_list_arho', ['uses' => 'myapi\ArhoController@fetch_list_arho'])->name('admin.informasi_arho.fetch_list_arho');
 
+Route::post('/informasi_arho/hapus_penugasan', ['uses' => 'myapi\PenugasanArhoApiController@hapus_penugasan_arho'])->name('admin.informasi_arho.hapus_penugasan');
+
 Route::post('/informasi_arho/update_penugasan', ['uses' => 'master_data\InformasiArhoController@update_penugasan_arho'])->name('admin.informasi_arho.update_penugasan_arho');
 
 Route::get('/list_kecamatan', ['uses' => 'master_data\KecamatanController@indexHome'])->name('admin.list_kecamatan');
