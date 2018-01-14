@@ -7,30 +7,45 @@
 
 @section('content')
 
-<div class="row" style="margin-top:15px;">
+<div class="row" style="margin-top:15px;" id="div_akun">
 
 	<div class="col s8">
 
 		<a class="waves-effect waves-light modal-trigger btn" href="#modal-tambah-akun">Buat Akun Baru</a>
 
+		 <div class="row">
+          <form class="col s12">
+
+             <div class="input-field col s6">
+      
+        </div>
+
+         <div class="input-field col s6">
+          <input  id="search_field" type="text" class="validate search">
+          <label for="search_field">Search</label>
+        </div>
+
+          </form>
+      </div>
+
 		<table class="bordered highlight centered responsive-table" id="tabel_akun">
         <thead>
           <tr>
           	  <th>No.</th>
-              <th>Username</th>
+              <th >Username</th>
               <th>Email</th>
               <th>Actions</th>
           </tr>
         </thead>
 
-        <tbody>
+        <tbody class="list">
 
         	@foreach($users as $user)
 
         		<tr>
         		<td>{{$loop->index+1}}</td>
-        		<td>{{$user->username}}</td>
-        		<td>{{$user->email}}</td>
+        		<td class="username">{{$user->username}}</td>
+        		<td class="email">{{$user->email}}</td>
         		<td>
         			<a class='dropdown-button btn' href='#' data-activates='dropdown-{{$user->id_user}}'>Actions</a>
 
@@ -211,25 +226,23 @@
 
 @push('scripts')
 
-<script type="text/javascript" src="{{asset('js/dataTables.materialize.js')}}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
 
 	
 	<script type="text/javascript">
 		
 		$(document).ready(function () {
 			// body...
+		  var options = {
+        valueNames: [ 'username','email']
+    };
 
-		var tabel_akun =	$('#tabel_akun').DataTable({
-        
-		        "scrollY":        "200px",
-		        "scrollCollapse": true,
-		        "destory":true,
+    var listAkun = new List('div_akun', options);
 
-    		});
+		
 
-		$('#tabel_akun tbody').on('click','.li-edit',function  () {
+		$('.li-edit').click(function  () {
 			// body...
-
 				var id_target_user = $(this).data('iduser');
 
 				$.ajaxSetup({
@@ -270,18 +283,16 @@
             		});
 		});
 
-		$('#tabel_akun tbody').on('click','.li-gantisandi',function  () {
+		$('.li-gantisandi').click(function  () {
 			// body...
-
 			var id_target_user = $(this).data('iduser');
 
 				$('#id_target_user').val(id_target_user);
 
 				$('#modal-ganti-sandi').modal('open');
-
 		});
 
-		$('#tabel_akun tbody').on('click','.li-hapus',function  () {
+		$('.li-hapus').click(function  () {
 			// body...
 			var id_user = $(this).data('iduser');
 
