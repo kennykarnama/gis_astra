@@ -49,6 +49,8 @@ Route::post('/informasi_arho/get_arho_by_id', ['uses' => 'master_data\InformasiA
 
 Route::post('/informasi_arho/get_kelurahan_by_kecamatan', ['uses' => 'master_data\InformasiArhoController@get_kelurahan_by_kecamatan'])->name('admin.informasi_arho.get_kelurahan_by_kecamatan');
 
+Route::post('/informasi_arho/fetch_kelurahan', ['uses' => 'myapi\KelurahanApiController@fetch_list_kelurahan_by_arr'])->name('admin.informasi_arho.fetch_kelurahan');
+
 Route::post('/informasi_arho/simpan_penugasan', ['uses' => 'master_data\InformasiArhoController@create_penugasan_arho'])->name('admin.informasi_arho.simpan_penugasan');
 
 Route::post('/informasi_arho/get_info_penugasan', ['uses' => 'master_data\InformasiArhoController@get_info_penugasan_by_id_kelurahan'])->name('admin.informasi_arho.get_info_penugasan');
@@ -76,6 +78,7 @@ Route::post('/list_kelurahan/hapus', ['uses' => 'master_data\KelurahanController
 Route::post('/list_kelurahan/fetch', ['uses' => 'master_data\KelurahanController@fetch_kelurahan_by_id_kelurahan'])->name('admin.list_kelurahan.fetch');
 
 Route::post('/list_kelurahan/update', ['uses' => 'master_data\KelurahanController@update_kelurahan'])->name('admin.list_kelurahan.update');
+
 
 
 Auth::routes();

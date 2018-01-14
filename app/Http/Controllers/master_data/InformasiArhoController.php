@@ -232,17 +232,35 @@ class InformasiArhoController extends Controller
     public function softdelete_arho(Request $request)
     {
         # code...
-        $id_arho = $request['id_arho'];
 
-        $query = Arho::where('arho.id_arho','=',$id_arho)
+         $id_arho = $request['id_arho'];
+
+        DB::beginTransaction();
+
+        try {
+           
+            
+        Arho::where('arho.id_arho','=',$id_arho)
                        ->update(['arho.is_aktif'=>0]);
 
-        if($query){
+
+        PenugasanArho::where('penugasan_arho.id_arho','=',$id_arho)
+                       ->where('penugasan_arho.is_aktif','=',1)
+                        ->update(['penugasan_arho.is_aktif'=>0]);             
+
+            DB::commit();
+
             return 1;
-        }
-        else{
+            // all good
+        } catch (\Exception $e) {
+            DB::rollback();
+
             return 0;
+            // something went wrong
         }
+
+       
+
     }
 
     public function update_arho(Request $request)
@@ -283,7 +301,14 @@ class InformasiArhoController extends Controller
 
         $query = Arho::where('arho.id_arho','=',$id_arho)->get();
 
-        return response()->json($query);
+        $query_penugasan = $this->fetchPenugasanArhoByIdArho($id_arho);
+
+        $resp = array(
+            'arho'=>$query,
+            'penugasan_arho'=>$query_penugasan
+            );
+
+        return response()->json($resp);
     }
 
     public function get_kelurahan_by_kecamatan(Request $request)
@@ -406,6 +431,18 @@ class InformasiArhoController extends Controller
                     ->join('kelurahan','kelurahan.id_kelurahan','=','penugasan_arho.id_kelurahan')
                     ->join('kecamatan','kecamatan.id_kecamatan','=','kelurahan.id_kecamatan')
                     ->where('penugasan_arho.is_aktif','=',1)
+                    ->get();
+
+        return $query;
+    }
+
+    private function fetchPenugasanArhoByIdArho($id_arho){
+        $query = DB::table('penugasan_arho')
+                    ->join('arho','arho.id_arho','=','penugasan_arho.id_arho')
+                    ->join('kelurahan','kelurahan.id_kelurahan','=','penugasan_arho.id_kelurahan')
+                    ->join('kecamatan','kecamatan.id_kecamatan','=','kelurahan.id_kecamatan')
+                    ->where('penugasan_arho.is_aktif','=',1)
+                    ->where('penugasan_arho.id_arho','=',$id_arho)
                     ->get();
 
         return $query;
