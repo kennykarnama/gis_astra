@@ -278,6 +278,10 @@ class InformasiArhoController extends Controller
 
         $tgl_input = $request['tgl_input'];
 
+        $time = strtotime($tgl_input);
+
+         $newformat = date('Y-m-d',$time);
+
         $arr_kelurahan = $request['arr_kelurahan'];
 
         if(is_null($avatar_path)){
@@ -307,14 +311,14 @@ class InformasiArhoController extends Controller
 
                 $penugasan_arho->id_kelurahan = $arr_kelurahan[$i];
 
-                $penugasan_arho->tgl_input = $tgl_input;
+                $penugasan_arho->tgl_input = $newformat;
 
                 $penugasan_arho->is_aktif = 1;
 
                 $penugasan_arho->save();
 
             }
-            
+
             DB::commit();
 
             return 1;
