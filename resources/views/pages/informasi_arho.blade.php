@@ -131,7 +131,7 @@
 
 
             <div class="input-field col s12">
-            <select id="edit_kecamatan" nama="edit_kecamatan" multiple>
+            <select id="edit_kecamatan" nama="edit_kecamatan">
               <option value="" disabled selected>Pilih Kecamatan</option>
               @foreach($list_kecamatan as $kecamatan)
                 <option value="{{$kecamatan->id_kecamatan}}">{{$kecamatan->nama_kecamatan}}</option>
@@ -786,6 +786,51 @@ $('.li-arho-hapus').click(function  () {
 
         
     });
+
+  $('#edit_kecamatan').on('change',function  () {
+      // body...
+        var id_kecamatan = $('#edit_kecamatan').val();
+
+        $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
+
+        $.ajax({
+                   type:'POST',
+                   url:'{{route("admin.informasi_arho.get_kelurahan_by_kecamatan")}}',
+                   data:{
+
+                   'id_kecamatan':id_kecamatan
+
+
+                   },
+                   success:function(data){
+
+                    $("#edit_kelurahan").empty();
+                      
+                      for(var i=0;i<data.length;i++){
+
+                        var kelurahan = data[i];
+
+                        var str = "<option value='"+kelurahan.id_kelurahan+"'>"+data.nama_kelurahan+"</option>";
+
+                        $('#edit_kelurahan').append($('<option>', {
+                            value: kelurahan.id_kelurahan,
+                            text: kelurahan.nama_kelurahan
+}                       ));
+
+                      }
+
+                      $('select').material_select();
+
+                   }
+                });
+
+        
+    });
+
     $('#btn-edit-arho').click(function () {
       // body...
 
