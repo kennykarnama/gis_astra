@@ -119,6 +119,19 @@
              
             </div>
 
+
+              <div class="input-field col s6">
+                
+                <input id="edit_avatar_path" name="avatar_path" type="text" class="validate">
+                <label for="edit_avatar_path">Avatar</label>
+              </div>
+
+              <div class="col s6">
+                <button type="button" class="waves-effect waves-red btn-flat">Browse...</button>
+              </div>
+
+               
+
              <input type="hidden" id="id_kelurahan_penugasan" name="id_kelurahan_penugasan">
 
           <div class="input-field col s12">
@@ -129,8 +142,15 @@
             <label for="tgl_input_penugasan">Tgl Input</label>
           </div>
 
+          <div class="col s12" style="margin-bottom:15px;">
+            <a class="waves-effect waves-light btn" id="btn-tambah-penugasan-edit">Tambah Penugasan</a>
+          </div>
 
-            <div class="input-field col s12">
+          
+
+          <div id="tambah_penugasan_arho" style="display:none;">
+
+                <div class="input-field col s12">
             <select id="edit_kecamatan" nama="edit_kecamatan">
               <option value="" disabled selected>Pilih Kecamatan</option>
               @foreach($list_kecamatan as $kecamatan)
@@ -151,23 +171,13 @@
           
           </div>
 
+          </div>
+
+        
+
           <ul class="collection with-header" id="list_penugasan_arho">
 
           </ul>
-
-
-           
-
-              <div class="input-field col s6">
-                
-                <input id="edit_avatar_path" name="avatar_path" type="text" class="validate">
-                <label for="edit_avatar_path">Avatar</label>
-              </div>
-
-              <button type="button" class="waves-effect waves-red btn-flat">Browse...</button>
-
-            
-
 
 
             </form>
@@ -308,6 +318,12 @@ function theFunction (event) {
 
   $(document).ready(function () {
     // body..
+    $('#btn-tambah-penugasan-edit').click(function  () {
+      // body...
+      $('#tambah_penugasan_arho').toggle();
+    
+    });
+    
     var options = {
         valueNames: [ 'nama_arho']
     };
