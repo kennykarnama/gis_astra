@@ -218,23 +218,33 @@
               <label>Tanggal Input</label>
           </div>
 
+            <div class="input-field col s12">
 
-          <div class="input-field col s12">
-            <select id="kecamatan" nama="kecamatan">
-              <option value="" disabled selected>Pilih Kecamatan</option>
-              @foreach($list_kecamatan as $kecamatan)
-                <option value="{{$kecamatan->id_kecamatan}}">{{$kecamatan->nama_kecamatan}}</option>
-              @endforeach
-            </select>
-           <label>Kecamatan</label>
-          </div>
+              <select multiple id="wilayah">
 
-          <div class="input-field col s12">
-            <select multiple id="kelurahan" nama="kelurahan">
-              <option value="" disabled selected>Pilih Kelurahan</option>
-             
-            </select>
-           <label>Kelurahan</label>
+                @for($i=0; $i < count($list_kelurahan_kecamatan); $i++)
+
+                  @php
+                    $kecamatan = $list_kelurahan_kecamatan[$i];
+
+                    $list_kelurahan = $kecamatan['kelurahan'];
+                  @endphp
+
+                  <optgroup label="Kecamatan {{$kecamatan['nama_kecamatan']}}">
+
+                      @for($j=0;$j < count($list_kelurahan); $j++)
+                         <option value="{{$list_kelurahan[$j]['id_kelurahan']}}">{{$list_kelurahan[$j]['nama_kelurahan']}}</option>
+                      @endfor
+                     
+                  </optgroup>
+
+                @endfor
+               
+              </select>
+              <label>Wilayah Penugasan</label>
+
+
+              
           </div>
 
 
@@ -976,9 +986,9 @@ $('.li-arho-hapus').click(function  () {
 
       //var id_arho = $('#arho').val();
 
-      var kecamatan = $('#kecamatan').val();
+      var arr_kelurahan = $('#wilayah').val();
 
-      var kelurahan = $('#kelurahan').val();
+      console.log(arr_kelurahan);
 
         $.ajaxSetup({
                   headers: {
@@ -994,8 +1004,7 @@ $('.li-arho-hapus').click(function  () {
                    'nama_lengkap':nama_lengkap,
                    'avatar_path':avatar_path,
                    'tgl_input':tgl_input,
-                   'kecamatan':kecamatan,
-                   'kelurahan':kelurahan
+                   'arr_kelurahan':arr_kelurahan
 
                    },
                    success:function(data){
