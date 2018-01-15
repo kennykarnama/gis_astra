@@ -40,10 +40,17 @@
 
         <tbody class="list">
 
+        	@php
+        		$puter = ($users->currentPage()-1)* $users->perPage() + 1;
+        	@endphp
+        	 
+
+
+
         	@foreach($users as $user)
 
         		<tr>
-        		<td>{{$loop->index+1}}</td>
+        		<td>{{$puter}}</td>
         		<td class="username">{{$user->username}}</td>
         		<td class="email">{{$user->email}}</td>
         		<td>

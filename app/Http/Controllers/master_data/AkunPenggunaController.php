@@ -149,7 +149,7 @@ class AkunPenggunaController extends Controller
 
     	$query = User::where('users.id_user','!=',$id_user)
     			->where('users.is_aktif','=',1)
-    			->get();
+    			->paginate(6);
 
     	return $query;
 

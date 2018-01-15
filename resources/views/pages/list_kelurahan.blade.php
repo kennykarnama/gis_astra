@@ -27,7 +27,9 @@
 
           </form>
       </div>
-
+        @php
+            $puter = ($list_kelurahan->currentPage()-1)* $list_kelurahan->perPage() + 1;
+          @endphp
 
 		<table class="bordered highlight centered responsive-table" id="tabel_kelurahan">
         <thead>
@@ -46,7 +48,7 @@
         	@foreach($list_kelurahan as $kelurahan)
 
         		<tr>
-        		<td>{{$loop->index+1}}</td>
+        		<td>{{$puter++}}</td>
         		<td class="nama_kelurahan">{{$kelurahan->nama_kelurahan}}</td>
         		<td class="nama_kecamatan">{{$kelurahan->nama_kecamatan}}</td>
             <td>{{$kelurahan->lat}}</td>

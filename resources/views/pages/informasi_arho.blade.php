@@ -28,6 +28,12 @@
 
           </form>
       </div>
+
+      @php
+            $puter = ($list_arho->currentPage()-1)* $list_arho->perPage() + 1;
+          @endphp
+           
+
 	  	<table  id="tabel_daftar_arho">
         <thead>
           <tr>
@@ -43,7 +49,7 @@
         	@foreach($list_arho as $arho)
 
         		<tr>
-        			<td>{{$loop->index+1}}</td>
+        			<td>{{$puter++}}</td>
 
         			@if(strlen($arho->avatar)==0)
         			<td>
