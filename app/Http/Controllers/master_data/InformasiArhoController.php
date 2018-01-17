@@ -501,7 +501,7 @@ class InformasiArhoController extends Controller
 
     private function fetchListArho(){
     	
-    	$query = Arho::where('arho.is_aktif','=',1)->paginate(3);
+    	$query = Arho::where('arho.is_aktif','=',1)->paginate(1000);
 
     	return $query;
     }

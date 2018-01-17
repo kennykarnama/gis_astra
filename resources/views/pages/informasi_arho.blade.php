@@ -29,7 +29,7 @@
           </form>
       </div>
 
-      @php
+          @php
             $puter = ($list_arho->currentPage()-1)* $list_arho->perPage() + 1;
           @endphp
            

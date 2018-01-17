@@ -140,7 +140,7 @@ class KecamatanController extends Controller
     }
 
     private function fetch_list_kecamatan(){
-    	$query = Kecamatan::where('kecamatan.is_aktif','=',1)->paginate(6);
+    	$query = Kecamatan::where('kecamatan.is_aktif','=',1)->paginate(25);
 
     	return $query;
     }
