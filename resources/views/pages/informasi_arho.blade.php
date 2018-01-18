@@ -62,7 +62,11 @@
         				<img class="responsive-img" src="{{$arho->avatar}}">
         			</td>
         			@endif
-        			<td class="nama_arho">{{$arho->nama_lengkap}}</td>
+        			<td class="nama_arho">
+
+              {{$arho->nama_lengkap}}
+
+                </td>
         		
         			<td>
                
@@ -70,8 +74,10 @@
 
         			<!-- Dropdown Structure -->
 						  <ul id='dropdown-arho-{{$arho->id_arho}}' class='dropdown-content'>
-						    <li data-idarho="{{$arho->id_arho}}" class="li-arho-edit"><a>Edit</a></li>
+						    <li data-idarho="{{$arho->id_arho}}" class="li-arho-detail"><a>Detail</a></li>
+                <li data-idarho="{{$arho->id_arho}}" class="li-arho-edit"><a>Edit</a></li>
 						    <li data-idarho="{{$arho->id_arho}}" class="li-arho-hapus"><a>Hapus</a></li>
+
 						  </ul>
         			</td>
         		</tr>
@@ -100,7 +106,25 @@
 	  
 	</div>
   
+<!-- Modal Structure -->
+  <div id="modal-pilih-detail-arho" class="modal">
+    <div class="modal-content">
+      <div class="center-align">
 
+          <input type="hidden" id="detail-id-arho">
+          <p><b>Detail Arho<b></p>
+          <p><b>Silakan pilih Untuk melihat detail arho dengan tombol dibawah ini</b></p>
+      </div>
+      
+    </div>
+    <div class="modal-footer">
+
+     
+   
+      <a href="#!" class="waves-effect waves-green btn-flat" id="btn-arho-customer">Daftar Customer</a>
+      <a href="#!" class="waves-effect waves-green btn-flat" id="btn-arho-wilayah">Daftar Wilayah</a>
+    </div>
+  </div>
 
 <!-- Modal Structure -->
   <div id="modal-edit-arho" class="modal">
@@ -380,6 +404,46 @@ function hapusPenugasanArho (event) {
 
   $(document).ready(function () {
     // body..
+    $("#link_nama_arho").click(function  () {
+      // body...
+      alert('tet');
+    });
+    $('#btn-arho-wilayah').click(function  () {
+      // body...
+      var id_arho  =$('#detail-id-arho').val();
+      var url = '{{ route("admin.detail_arho", [":pilihan",":id_arho"]) }}';
+    url = url.replace(':pilihan', 2);
+    url = url.replace(':id_arho', id_arho);
+
+       $('#modal-pilih-detail-arho').modal('close');
+    
+    var win = window.open(url, '_blank');
+if (win) {
+    //Browser has allowed it to be opened
+    win.focus();
+} else {
+    //Browser has blocked it
+    alert('Please allow popups for this website');
+}
+
+      
+   
+    });
+
+    $('#btn-arho-customer').click(function  () {
+      // body...
+
+      $('#modal-pilih-detail-arho').modal('close');
+    });
+    $('.li-arho-detail').click(function  () {
+      // body...
+      var id_arho = $(this).data('idarho');
+
+      $('#detail-id-arho').val(id_arho);
+
+        $('#modal-pilih-detail-arho').modal('open');
+    });
+
     $('#btn-tambah-penugasan-edit').click(function  () {
       // body...
       $('#tambah_penugasan_arho').toggle();
