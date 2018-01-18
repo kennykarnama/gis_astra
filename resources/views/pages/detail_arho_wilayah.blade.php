@@ -7,6 +7,12 @@
 
 @section('content')
 
+ <style>
+       #peta_kecamatan {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
 
 
 <div class="row" style="margin-top:15px;">
@@ -85,6 +91,14 @@
     </div>
   </div>
 
+  <div class="row">
+
+  	<div class="container">
+  		<div id="peta_kecamatan"></div>
+  	</div>
+  	
+  </div>
+
     </div>
     <div class="modal-footer">
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
@@ -93,6 +107,8 @@
 
 @push('scripts')
 	<script type="text/javascript">
+
+
 
 		$(document).ready(function  () {
 			// body...
@@ -126,6 +142,20 @@
 
 		                 $('#lot').val(data.lng);
 
+		                 var latVal = data.lat;
+
+		                 var lngVal = data.lng;
+
+		                var uluru = {lat: latVal, lng: lngVal};
+        var map = new google.maps.Map(document.getElementById('peta_kecamatan'), {
+          zoom: 20,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        }); 
+
 		                 Materialize.updateTextFields();
 
 		                 $('#modal-detail-kecamatan').modal('open'); 
@@ -137,6 +167,11 @@
 		});
 		
 	</script>
+
+	
+    <script async defer
+   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtYiajc1RrGCJtWnaBSwVlJGhND6delcQ">
+    </script>
 @endpush
 
 @stop
