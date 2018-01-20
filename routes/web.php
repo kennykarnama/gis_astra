@@ -88,6 +88,9 @@ Route::get('/detail_arho/{pilihan}/{id_arho}', ['uses' => 'master_data\DetailArh
 
 Route::get('/data_customer', ['uses' => 'master_data\DataCustomerController@indexHome'])->name('admin.data_customer');
 
+Route::get('/pembayaran', ['uses' => 'master_data\PembayaranController@indexHome'])->name('admin.pembayaran');
+
+
 
 Auth::routes();
 

@@ -77,6 +77,18 @@
               </li>
 
 
+              <li class="no-padding">
+                  <ul class="collapsible collapsible-accordion">
+                    <li>
+                      <a class="collapsible-header" href="{{route('admin.pembayaran')}}">Pembayaran</a>
+                      <div class="collapsible-body">
+                       
+                      </div>
+                    </li>
+                   </ul>
+              </li>
+
+
                <li class="no-padding">
                   <ul class="collapsible collapsible-accordion">
                     <li>
