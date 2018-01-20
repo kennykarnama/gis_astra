@@ -147,14 +147,14 @@
 		                 var lngVal = data.lng;
 
 		                var uluru = {lat: latVal, lng: lngVal};
-        var map = new google.maps.Map(document.getElementById('peta_kecamatan'), {
-          zoom: 20,
-          center: uluru
-        });
-        var marker = new google.maps.Marker({
-          position: uluru,
-          map: map
-        }); 
+					        var map = new google.maps.Map(document.getElementById('peta_kecamatan'), {
+					          zoom: 20,
+					          center: uluru
+					        });
+					        var marker = new google.maps.Marker({
+					          position: uluru,
+					          map: map
+					        }); 
 
 		                 Materialize.updateTextFields();
 

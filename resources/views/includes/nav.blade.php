@@ -68,7 +68,7 @@
                    </ul>
                           </li>
                           <!-- <li><a href="#!">Informasi Wilayah</a></li> -->
-                          <li><a href="#!">Informasi Kredit</a></li>
+                          <li><a href="{{route('admin.data_customer')}}">Data Customer</a></li>
                         </ul>
 
                       </div>

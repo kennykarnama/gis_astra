@@ -86,6 +86,7 @@ Route::post('/list_kelurahan/update', ['uses' => 'master_data\KelurahanControlle
 
 Route::get('/detail_arho/{pilihan}/{id_arho}', ['uses' => 'master_data\DetailArhoController@view_detail'])->name('admin.detail_arho');
 
+Route::get('/data_customer', ['uses' => 'master_data\DataCustomerController@indexHome'])->name('admin.data_customer');
 
 
 Auth::routes();
