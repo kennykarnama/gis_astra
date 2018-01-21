@@ -12,7 +12,9 @@
  <div class="row">
   <div class="input-field col s6">
    	<select>
-      <option value="" disabled selected>Pilih pencarian berdasarkan</option>
+      <!-- <option value="" disabled selected>Pilih pencarian berdasarkan</option> -->
+      <option value="1" disabled selected>No Agreement</option>
+      <option value="2" disabled selected>Nama Customer</option>
     </select>
   </div>
  </div>
@@ -24,12 +26,12 @@
       <input id="" type="text" class="validate">
       <label for="last_name">No agreement/nama customer</label>
   </div>
-  <a class="waves-effect waves-light btn" style="margin-top: 25px;">Cari</a>
+  <a class="waves-effect waves-light btn" style="margin-top: 25px;" id="btn-cari-tagihan">Cari</a>
 
 
 </div>
 
-<div class="row">
+<div class="row" id="info_tagihan_customer" style="display:none;">
 	 <div class="col s12 m7">
     <div class="card horizontal">
     
@@ -113,6 +115,11 @@
 			// body...
 			$('#modal_eod_kurang').modal('open');
 		});
+
+      $('#btn-cari-tagihan').click(function  () {
+        // body...
+          $('#info_tagihan_customer').show();
+      });
 		});
 	</script>
 @endpush
