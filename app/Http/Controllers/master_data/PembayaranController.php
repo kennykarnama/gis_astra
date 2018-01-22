@@ -4,7 +4,8 @@ namespace App\Http\Controllers\master_data;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Auth;
+use auth;
+use App\transaksi\Transaksi;
 
 class PembayaranController extends Controller
 {
@@ -21,4 +22,6 @@ class PembayaranController extends Controller
     	# code...
     	return view("pages.pembayaran", []);
     }
+
+
 }
