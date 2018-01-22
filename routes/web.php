@@ -94,6 +94,11 @@ Route::post('/list_kelurahan/fetch_by_kecamatan', ['uses' => 'myapi\KelurahanApi
 
 Route::post('/peminjaman/simpan', ['uses' => 'master_data\DataCustomerController@create_peminjaman'])->name('admin.peminjaman.simpan');
 
+Route::post('/peminjaman/fetch', ['uses' => 'master_data\DataCustomerController@fetch_peminjaman'])->name('admin.peminjaman.fetch');
+
+Route::post('/peminjaman/update', ['uses' => 'master_data\DataCustomerController@update_peminjaman'])->name('admin.peminjaman.update');
+
+
 Auth::routes();
 
 

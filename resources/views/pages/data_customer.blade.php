@@ -90,6 +90,7 @@
             <td>
               <a class="waves-effect waves-light btn btn-edit-peminjaman"
               data-noagreement={{$customer->no_agreement}}
+              data-idpeminjaman={{$customer->id_peminjaman}}
               >Edit</a>
             </td>
           </tr>
@@ -209,8 +210,10 @@
 
     <div class="row">
 
+      <input type="hidden" id="id_peminjaman">
+
     <div class="input-field col s12">
-          <input id="edit_no_agreement" type="text" class="validate">
+          <input id="edit_no_agreement" type="text" class="validate" disabled>
           <label for="edit_no_agreement">No Agreement</label>
       </div>
       <div class="input-field col s12">
@@ -220,18 +223,27 @@
       <div class="input-field col s12">
 	    <select id="edit_id_arho">
 	      <option value="" disabled selected>Pilih Arho</option>
+        @foreach($list_arho as $arho)
+          <option value="{{$arho->id_arho}}">{{$arho->nama_lengkap}}</option>
+        @endforeach
 	    </select>
 	   <!--  <label>Materialize Select</label> -->
 	  </div>
 	  <div class="input-field col s12">
 	    <select id="edit_id_kota">
 	      <option value="" disabled selected>Pilih Kota</option>
+         @foreach($cities as $city)
+          <option value="{{$city->id_kota}}">{{$city->nama_kota}}</option>
+        @endforeach
 	    </select>
 	<!--     <label>Materialize Select</label> -->
 	  </div>
 	    <div class="input-field col s12">
 	    <select id="edit_id_kecamatan">
 	      <option value="" disabled selected>Pilih Kecamatan</option>
+         @foreach($list_kecamatan as $kecamatan)
+          <option value="{{$kecamatan->id_kecamatan}}">{{$kecamatan->nama_kecamatan}}</option>
+        @endforeach
 	    </select>
 	<!--     <label>Materialize Select</label> -->
 	  </div>
@@ -272,7 +284,7 @@
     </div>
     
     <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+      <a href="#!" id="btn-edit-simpan-peminjaman" class="waves-effect waves-green btn-flat">Edit</a>
     </div>
   </div>
 @push('scripts')
@@ -281,11 +293,178 @@
 	<script type="text/javascript">
 		$(document).ready(function  () {
 			// body...
+
+      $('#btn-edit-simpan-peminjaman').click(function  () {
+        // body...
+
+        var id_peminjaman = $('#id_peminjaman').val();
+
+         var no_agreement = $('#edit_no_agreement').val();
+
+            var nama_peminjam = $('#edit_nama_peminjam').val();
+
+            var id_arho = $('#edit_id_arho').val();
+
+            var id_kota = $('#edit_id_kota').val();
+
+            var id_kecamatan = $('#edit_id_kecamatan').val();
+
+            var id_kelurahan = $('#edit_id_kelurahan').val();
+
+            var alamat = $('#edit_alamat').val();
+
+            var kode_pos = $('#edit_kode_pos').val();
+
+            var tgl_jatuh_tempo = $('#edit_tgl_jatuh_tempo').val();
+
+            var jumlah_angsuran = $('#edit_jumlah_angsuran').val();
+
+            var nilai_angsuran = $('#edit_nilai_angsuran').val();
+
+            var saldo = $('#edit_saldo').val();
+
+              $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
+
+        $.ajax({
+                   type:'POST',
+                   url:'{{route("admin.peminjaman.update")}}',
+                   data:{
+
+                    'id_peminjaman':id_peminjaman,
+                    'no_agreement':no_agreement,
+                    'nama_peminjam':nama_peminjam,
+                    'id_arho':id_arho,
+                    'id_kota':id_kota,
+                    'id_kecamatan':id_kecamatan,
+                    'id_kelurahan':id_kelurahan,
+                    'alamat':alamat,
+                    'kode_pos':kode_pos,
+                    'tgl_jatuh_tempo':tgl_jatuh_tempo,
+                    'jumlah_angsuran':jumlah_angsuran,
+                    'nilai_angsuran':nilai_angsuran,
+                    'saldo':saldo
+
+                    
+
+                   },
+                   success:function(data){
+
+                      if(data==1){
+                        alert('Peminjaman berhasil diupdate');
+
+                        location.reload();
+                      }
+
+                      else{
+                        alert('Pemijaman gagal diupdate');
+                      }
+                   }
+                });
+      });
       $('.btn-edit-peminjaman').click(function  () {
         // body...
           var no_agreement = $(this).data('noagreement');
 
-          alert(no_agreement);
+          var id_peminjaman = $(this).data('idpeminjaman');
+
+          $('#id_peminjaman').val(id_peminjaman);
+
+            $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
+
+        $.ajax({
+                   type:'POST',
+                   url:'{{route("admin.peminjaman.fetch")}}',
+                   data:{
+
+                    'no_agreement':no_agreement
+
+                   },
+                   success:function(data){
+                      var peminjaman = data[0];
+
+                        $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
+
+        $.ajax({
+                   type:'POST',
+                   url:'{{route("admin.list_kelurahan.fetch_by_kecamatan")}}',
+                   data:{
+
+                    'id_kecamatan':peminjaman.id_kecamatan
+
+                   },
+                   success:function(data){
+                      
+                    $('#edit_id_kelurahan').empty();
+
+                    $('#edit_id_kelurahan').append('<option value="" disabled selected>Pilih Kelurahan</option>');
+
+                    $('select').material_select();
+
+                     for(var i=0; i<data.length; i++){
+                        
+                        var kelurahan = data[i];
+
+                        var select_opt_var = "<option value='"+kelurahan.id_kelurahan+"'>"+kelurahan.nama_kelurahan+"</option>";
+
+                        $('#edit_id_kelurahan').append(select_opt_var);
+
+                        $('#edit_id_kelurahan').trigger('contentChanged');
+
+                            $('select').on('contentChanged', function() {
+                              // re-initialize (update)
+                              $(this).material_select();
+                            });
+                     }
+
+                     $('#edit_id_kelurahan').val(peminjaman.id_kelurahan);
+
+                     $('select').material_select();     
+
+                   }
+                });
+
+                      $('#edit_no_agreement').val(peminjaman.no_agreement);
+
+                      $('#edit_nama_peminjam').val(peminjaman.nama_peminjam);
+
+                      $('#edit_id_arho').val(peminjaman.id_arho);
+
+                      $('#edit_id_kota').val(peminjaman.id_kota);
+
+                      $('#edit_id_kecamatan').val(peminjaman.id_kecamatan);
+
+                      $('#edit_alamat').val(peminjaman.alamat);
+
+                      $('#edit_kode_pos').val(peminjaman.kode_pos);
+
+                      $('#edit_tgl_jatuh_tempo').val(peminjaman.tgl_jatuh_tempo);
+
+                      $('#edit_jumlah_angsuran').val(peminjaman.jumlah_angsuran);
+
+                      $('#edit_nilai_angsuran').val(peminjaman.nilai_angsuran);
+
+                      $('#edit_saldo').val(peminjaman.saldo);
+
+                      Materialize.updateTextFields();
+
+                      $('select').material_select();
+
+                      $('#modal-edit-customer').modal('open');
+
+                   }
+                });
       });
       $('#btn-simpan-peminjaman').click(function  () {
         // body...
@@ -393,6 +572,52 @@
                         $('#id_kelurahan').append(select_opt_var);
 
                         $('#id_kelurahan').trigger('contentChanged');
+
+                            $('select').on('contentChanged', function() {
+                              // re-initialize (update)
+                              $(this).material_select();
+                            });
+                     }
+                   }
+                });
+      });
+
+ $('#edit_id_kecamatan').on('change',function  () {
+        // body...
+
+        var id_kecamatan = $('#edit_id_kecamatan').val();
+
+          $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
+
+        $.ajax({
+                   type:'POST',
+                   url:'{{route("admin.list_kelurahan.fetch_by_kecamatan")}}',
+                   data:{
+
+                    'id_kecamatan':id_kecamatan
+
+                   },
+                   success:function(data){
+
+                    $('#edit_id_kelurahan').empty();
+
+                    $('#edit_id_kelurahan').append('<option value="" disabled selected>Pilih Kelurahan</option>');
+
+                    $('select').material_select();
+
+                     for(var i=0; i<data.length; i++){
+                        
+                        var kelurahan = data[i];
+
+                        var select_opt_var = "<option value='"+kelurahan.id_kelurahan+"'>"+kelurahan.nama_kelurahan+"</option>";
+
+                        $('#edit_id_kelurahan').append(select_opt_var);
+
+                        $('#edit_id_kelurahan').trigger('contentChanged');
 
                             $('select').on('contentChanged', function() {
                               // re-initialize (update)
