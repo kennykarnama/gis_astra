@@ -90,7 +90,9 @@ Route::get('/data_customer', ['uses' => 'master_data\DataCustomerController@inde
 
 Route::get('/pembayaran', ['uses' => 'master_data\PembayaranController@indexHome'])->name('admin.pembayaran');
 
+Route::post('/list_kelurahan/fetch_by_kecamatan', ['uses' => 'myapi\KelurahanApiController@fetch_list_kelurahan_by_kecamatan'])->name('admin.list_kelurahan.fetch_by_kecamatan');
 
+Route::post('/peminjaman/simpan', ['uses' => 'master_data\DataCustomerController@create_peminjaman'])->name('admin.peminjaman.simpan');
 
 Auth::routes();
 

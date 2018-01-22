@@ -11,6 +11,16 @@ class KelurahanApiController extends Controller
 {
     //
 
+    public function fetch_list_kelurahan_by_kecamatan(Request $request)
+    {
+        # code...
+        $id_kecamatan = $request['id_kecamatan'];
+
+        $query = $this->fetchListKelurahanByIdKecamatan($id_kecamatan);
+
+        return response()->json($query);
+    }
+
     public function fetch_list_kelurahan_by_arr(Request $request)
     {
     	# code...
