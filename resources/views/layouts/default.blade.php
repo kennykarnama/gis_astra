@@ -9,6 +9,8 @@
 
      <link rel="stylesheet" type="text/css" href="{{asset('css/default.css')}}">
 
+     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+
      <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.sumoselect/3.0.2/sumoselect.min.css"> -->
    
       <!--Let browser know website is optimized for mobile-->

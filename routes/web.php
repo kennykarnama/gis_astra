@@ -98,6 +98,9 @@ Route::post('/peminjaman/fetch', ['uses' => 'master_data\DataCustomerController@
 
 Route::post('/peminjaman/update', ['uses' => 'master_data\DataCustomerController@update_peminjaman'])->name('admin.peminjaman.update');
 
+Route::get('/upload_file', ['uses' => 'UploadFileController@indexHome'])->name('admin.upload_file');
+
+Route::post('/upload_file/import', ['uses' => 'UploadFileController@import_excel'])->name('admin.upload_file.import');
 
 Auth::routes();
 
