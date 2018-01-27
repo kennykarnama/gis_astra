@@ -49,7 +49,7 @@ class UploadFileController extends Controller
 			DB::disableQueryLog();
 		
 
-			Excel::filter('chunk')->load($path)->chunk(500, function($results)
+			Excel::filter('chunk')->load($path)->chunk(1000, function($results)
 			{
 
 					
