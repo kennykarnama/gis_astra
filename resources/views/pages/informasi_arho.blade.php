@@ -53,7 +53,7 @@
 
         			@if(strlen($arho->avatar)==0)
         			<td>
-        				<img class="responsive-img" src="{{url('/images/worker.png')}}" style="width:80px;">
+        				<img class="responsive-img" src="{{asset('/images/worker.png')}}" style="width:80px;">
         			</td>
         			@endif
 

@@ -37,73 +37,76 @@ class UploadFileController extends Controller
     	return view('pages.upload_file',[]);
     }
 
-  //   public function import_excel()
-  //   {
-  //   	# code...
-  //   		if(Input::hasFile('import_file')){
+ //    public function import_excel()
+ //    {
+ //    	# code...
+ //    		if(Input::hasFile('import_file')){
 
     		
-		// 	$path = Input::file('import_file')->getRealPath();
+	// 		$path = Input::file('import_file')->getRealPath();
 
-		// 	$prepared_data = array();
+	// 		$prepared_data = array();
 
 				
 			
-		// 	DB::table('report')->truncate();
+	// 		DB::table('report')->truncate();
 
-		// 	DB::disableQueryLog();
+	// 		DB::disableQueryLog();
 		
 
-		// 	Excel::filter('chunk')->load($path)->chunk(1000, function($results)
-		// 	{
+	// 		Excel::filter('chunk')->load($path)->chunk(1000, function($results)
+	// 		{
 
 					
-		// 			$counter = 0;
+	// 				$counter = 0;
 					
-		// 				$prepared_data = array();
+	// 					$prepared_data = array();
 
-		// 	        foreach ($results as $row) {
-		// 	        	# code...
-		// 	        	$headers = $row->keys()->all();
+	// 		        foreach ($results as $row) {
+	// 		        	# code...
+	// 		        	$headers = $row->keys()->all();
 
-		// 	        	//dd($headers);
+	// 		        	//dd($headers);
 
-		// 	        	$tmp = array();
+	// 		        	$tmp = array();
 
-		// 	        	for($i=0;$i<count($headers);$i++){
+	// 		        	for($i=0;$i<count($headers);$i++){
 			        		
-		// 	        		$col_name = $headers[$i];
+	// 		        		$col_name = $headers[$i];
 
 
 
-		// 	        		$tmp[$col_name] = $row[$col_name];
+	// 		        		$tmp[$col_name] = $row[$col_name];
 
-		// 	        	}
-
-
-		// 	        	//echo $row->date_byr."<br>";
+	// 		        	}
 
 
+	// 		        	//echo $row->date_byr."<br>";
 
-		// 	        	// $counter++;
 
-		// 	        	array_push($prepared_data, $tmp);
+
+	// 		        	// $counter++;
+
+	// 		        	array_push($prepared_data, $tmp);
 
 			        	
 
 
-		// 	        }
+	// 		        }
 
-		// 	        //echo $counter."<br>";
+	// 		        //echo $counter."<br>";
 
-		// 	        //dd($prepared_data);
-		// 	        DB::table('report')->insert($prepared_data);
+	// 		        //dd($prepared_data);
+	// 		        DB::table('report')->insert($prepared_data);
 
-		// 	       	//echo count($prepared_data)."<br>";
-		// 	       // echo "sukses"."<br>";
+	// 		       	//echo count($prepared_data)."<br>";
+	// 		       // echo "sukses"."<br>";
 
 			      
-		// 	});
+	// 		});
+
+	// 	}
+	// }
 
 		// 	// $line0 = $data[0];
 
