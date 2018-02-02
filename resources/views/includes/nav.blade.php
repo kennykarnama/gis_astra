@@ -68,27 +68,16 @@
                    </ul>
                           </li>
                           <!-- <li><a href="#!">Informasi Wilayah</a></li> -->
-                          <li><a href="{{route('admin.data_customer')}}">Data Customer</a></li>
+                          <!-- <li><a href="{{route('admin.data_customer')}}">Data Customer</a></li> -->
                         </ul>
 
                       </div>
                     </li>
                    </ul>
-              </li>
+                </li>
 
 
-              <!-- <li class="no-padding">
-                  <ul class="collapsible collapsible-accordion">
-                    <li>
-                      <a class="collapsible-header" href="{{route('admin.pembayaran')}}">Pembayaran</a>
-                      <div class="collapsible-body">
-                       
-                      </div>
-                    </li>
-                   </ul>
-              </li>
- -->
-              <li class="no-padding">
+            <!--   <li class="no-padding">
                   <ul class="collapsible collapsible-accordion">
                     <li>
                       <a class="collapsible-header" href="{{route('admin.upload_file')}}">Upload File</a>
@@ -97,7 +86,7 @@
                       </div>
                     </li>
                    </ul>
-              </li>
+              </li> -->
 
 
                <li class="no-padding">
